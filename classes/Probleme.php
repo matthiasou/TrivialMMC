@@ -7,5 +7,7 @@
  */
 
 class Probleme extends \BaseObject{
+    private $id;
+    private $libelle;
 
 } 
