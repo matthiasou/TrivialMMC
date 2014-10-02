@@ -15,13 +15,29 @@ class Domaine extends \BaseObject{
      * @ManyToOne
      * @JoinColumn(name="idMonde",className="Monde")
      */
-    private $Monde;
+    private $idMonde;
 
 
     /**
      * @OneToMany(mappedBy="domaine",className="Question")
      */
     private $questions;
+
+    /**
+     * @return mixed
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+
+    /**
+     * @param mixed $questions
+     */
+    public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+    }
 
     /**
      * @return mixed
@@ -39,21 +55,6 @@ class Domaine extends \BaseObject{
         $this->description = $description;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed
