@@ -7,18 +7,15 @@
  */
 
 class Reponse extends \BaseObject{
-    private $id;
     private $idQuestion;
 
     /**
-     * @OneToMany
-     * @JoinColumn(name="libelle",className="Reponse")
+     * @OneToMany(mappedBy="libelle",className="Reponse")
      */
     private $libelle;
 
     /**
-     * @OneToMany
-     * @JoinColumn(name="estBonne",className="Reponse")
+     * @OneToMany(mappedBy="estBonne",className="Reponse")
      */
     private $estBonne;
 
@@ -38,21 +35,6 @@ class Reponse extends \BaseObject{
         $this->estBonne = $estBonne;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed

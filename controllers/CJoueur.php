@@ -43,4 +43,7 @@ class CJoueur extends \BaseController{
 			echo "Insertion de ".$nouveau." ok";
 			echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
 		}
+
+
+
 }
