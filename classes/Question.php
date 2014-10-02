@@ -13,10 +13,12 @@ class Question extends \BaseObject {
     private $libelle;
     private $validation;
 
+
     /**
-     * @OneToMany(mappedBy="id",className="Joueur")
+     * @ManyToOne
+     * @JoinColumn(name="idJoueur",className="Joueur")
      */
-    private $idJoueur;
+    private $joueur;
 
 
 
@@ -24,40 +26,42 @@ class Question extends \BaseObject {
      * @ManyToOne
      * @JoinColumn(name="idDomaine",className="Domaine")
      */
-    private $idDomaine;
+    private $domaine;
 
     /**
      * @return mixed
      */
-
-    public function getIdDomaine()
+    public function getDomaine()
     {
-        return $this->idDomaine;
+        return $this->domaine;
     }
 
     /**
-     * @param mixed $idDomaine
+     * @param mixed $domaine
      */
-    public function setIdDomaine($idDomaine)
+    public function setDomaine($domaine)
     {
-        $this->idDomaine = $idDomaine;
+        $this->domaine = $domaine;
     }
 
     /**
      * @return mixed
      */
-    public function getIdJoueur()
+    public function getJoueur()
     {
-        return $this->idJoueur;
+        return $this->joueur;
     }
 
     /**
-     * @param mixed $idJoueur
+     * @param mixed $joueur
      */
-    public function setIdJoueur($idJoueur)
+    public function setJoueur($joueur)
     {
-        $this->idJoueur = $idJoueur;
+        $this->joueur = $joueur;
     }
+
+
+
 
     /**
      * @return mixed
