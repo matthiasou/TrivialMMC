@@ -14,8 +14,7 @@ class Question extends \BaseObject {
     private $validation;
 
     /**
-     * @ManyToMany(targetEntity="Joueur", inversedBy="idJoueur1")
-     * @JoinTable(name="Joueur")
+     * @OneToMany(mappedBy="id",className="Joueur")
      */
     private $idJoueur;
 
@@ -26,6 +25,39 @@ class Question extends \BaseObject {
      * @JoinColumn(name="idDomaine",className="Domaine")
      */
     private $idDomaine;
+
+    /**
+     * @return mixed
+     */
+
+    public function getIdDomaine()
+    {
+        return $this->idDomaine;
+    }
+
+    /**
+     * @param mixed $idDomaine
+     */
+    public function setIdDomaine($idDomaine)
+    {
+        $this->idDomaine = $idDomaine;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdJoueur()
+    {
+        return $this->idJoueur;
+    }
+
+    /**
+     * @param mixed $idJoueur
+     */
+    public function setIdJoueur($idJoueur)
+    {
+        $this->idJoueur = $idJoueur;
+    }
 
     /**
      * @return mixed
