@@ -44,6 +44,16 @@ class CJoueur extends \BaseController{
 			echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
 		}
 
+    public function connexion(){
+
+
+    }
+
+    public function inscription (){
+
+
+    }
+
 
 
 }
