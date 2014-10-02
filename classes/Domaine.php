@@ -7,10 +7,21 @@
  */
 
 class Domaine extends \BaseObject{
-    private $id;
-    private $idMonde;
+
     private $libelle;
     private $description;
+
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idMonde",className="Monde")
+     */
+    private $Monde;
+
+
+    /**
+     * @OneToMany(mappedBy="domaine",className="Question")
+     */
+    private $questions;
 
     /**
      * @return mixed
