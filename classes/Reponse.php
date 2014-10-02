@@ -15,6 +15,11 @@ class Reponse extends \BaseObject{
      * @JoinColumn(name="libelle",className="Reponse")
      */
     private $libelle;
+
+    /**
+     * @OneToMany
+     * @JoinColumn(name="estBonne",className="Reponse")
+     */
     private $estBonne;
 
     /**
