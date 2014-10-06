@@ -16,7 +16,7 @@
             ?>
         </select><br>
         <hr>
-        <input type="button" value="Valider" id="btValider">
+        <input type="button" value="Valider" id="btValider3">
     </fieldset>
 
 </form>
