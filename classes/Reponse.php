@@ -7,7 +7,34 @@
  */
 
 class Reponse extends \BaseObject{
-    private $idQuestion;
+
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idQUestion",className="Question")
+     */
+    private $question;
+
+    /**
+     * @return mixed
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * @param mixed $question
+     */
+    public function setQuestion($question)
+    {
+        $this->question = $question;
+    }
+
+    public function toString()
+    {
+        return $this->libelle;
+    }
+
 
     /**
      * @OneToMany(mappedBy="libelle",className="Reponse")
@@ -36,21 +63,7 @@ class Reponse extends \BaseObject{
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getIdQuestion()
-    {
-        return $this->idQuestion;
-    }
 
-    /**
-     * @param mixed $idQuestion
-     */
-    public function setIdQuestion($idQuestion)
-    {
-        $this->idQuestion = $idQuestion;
-    }
 
     /**
      * @return mixed

@@ -8,7 +8,6 @@
 
 class CReponse extends \BaseController {
     public function index(){
-
     }
 
     public function load(){

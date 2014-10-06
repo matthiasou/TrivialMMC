@@ -8,11 +8,24 @@
 
 class CQuestion extends \BaseController {
     public function index(){
+        $this->loadView("vHeader");
+        $this->randomQuestion();
 
     }
 
     public function load(){
+        $this->loadView("vHeader");
         var_dump(DAO::getAll("Question"));
+
+    }
+
+    public function randomQuestion(){
+        $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
+        $reponses=DAO::getOneToMany($question, "reponses");
+        echo $question;
+        //echo $reponses;
+        $this->loadView("vQuestion", $question);
+        //var_dump($question);
     }
 
 } 
