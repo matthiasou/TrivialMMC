@@ -60,25 +60,15 @@ class CJoueur extends \BaseController{
         else
             echo 'Identifiants incorrects';
 
-
-
-
-
-
-
-
-
-
     }
+
+
 
     public function viewInscription (){
         echo JsUtils::doSomethingOn("#frmConnexion","hide");
         echo JsUtils::doSomethingOn("#inscription","hide");
         $this->loadView("VInscription");
         echo JsUtils::postFormAndBindTo("#btValider3","click","/trivia/CJoueur/inscription/","frmInscription","#divMessage");
-
-
-
 
 
     }
@@ -91,9 +81,6 @@ class CJoueur extends \BaseController{
         if(DAO::insert($joueur)==1)
             echo "Insertion de ".$joueur." ok";
         //echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
-
-
-
 
     }
 
