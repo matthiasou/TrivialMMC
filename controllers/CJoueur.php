@@ -15,6 +15,9 @@ class CJoueur extends \BaseController{
 		//echo JsUtils::getAndBindTo(".delete", "click", "/trivia/CJoueur/delete","{}","#divMessage");
         $this->loadView("VConnexion");
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion","#divMessage");
+        echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}","#divMessage");
+
+
 
 	}
 	public function delete($params){
@@ -48,10 +51,15 @@ class CJoueur extends \BaseController{
 		}
 
     public function connexion(){
-        $touslesjoueurs=DAO::getAll("Joueur");
+        //$touslesjoueurs=DAO::getAll("Joueur");
+        if($joueur=DAO::getOne("Joueur","login='".$_POST["login"]."' AND password= '".$_POST["password"]."'")){
+            var_dump($joueur);
+            $_SESSION["joueur1"] = $joueur;
+            var_dump($joueur);
+        }
+        else
+            echo 'Identifiants incorrects';
 
-        $joueur=DAO::getOne("Joueur","login='".$_POST["login"]."' AND password= '".$_POST["password"]."'");
-        var_dump($joueur);
 
 
 
@@ -63,7 +71,28 @@ class CJoueur extends \BaseController{
 
     }
 
-    public function inscription (){
+    public function viewInscription (){
+        echo JsUtils::doSomethingOn("#frmConnexion","hide");
+        echo JsUtils::doSomethingOn("#inscription","hide");
+        $this->loadView("VInscription");
+        echo JsUtils::postFormAndBindTo("#btValider3","click","/trivia/CJoueur/inscription/","frmInscription","#divMessage");
+
+
+
+
+
+    }
+    public function inscription() {
+
+        $joueur=new Joueur();
+        RequestUtils::setValuesToObject($joueur);
+        $monde=DAO::getOne("Monde", $_POST["idMonde"]);
+        $joueur->setMonde($monde);
+        if(DAO::insert($joueur)==1)
+            echo "Insertion de ".$joueur." ok";
+        //echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
+
+
 
 
     }
