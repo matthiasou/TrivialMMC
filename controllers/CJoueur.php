@@ -9,10 +9,13 @@ class CJoueur extends \BaseController{
 		echo "<div id='divMessage'></div>";
 	}
 	public function refresh(){
-		$joueurs=DAO::getAll("Joueur");
-		$this->loadView("vJoueurs",$joueurs);
-		echo JsUtils::getAndBindTo("#addNew", "click", "/trivia/CJoueur/viewAddNew/","{}","#divFrm");
-		echo JsUtils::getAndBindTo(".delete", "click", "/trivia/CJoueur/delete","{}","#divMessage");
+		//$joueurs=DAO::getAll("Joueur");
+		//$this->loadView("vJoueurs",$joueurs);
+		//echo JsUtils::getAndBindTo("#addNew", "click", "/trivia/CJoueur/viewAddNew/","{}","#divFrm");
+		//echo JsUtils::getAndBindTo(".delete", "click", "/trivia/CJoueur/delete","{}","#divMessage");
+        $this->loadView("VConnexion");
+        echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion","#divMessage");
+
 	}
 	public function delete($params){
 		$param=str_replace("delete", "", $params[0]);
@@ -45,6 +48,17 @@ class CJoueur extends \BaseController{
 		}
 
     public function connexion(){
+        $touslesjoueurs=DAO::getAll("Joueur");
+
+        $joueur=DAO::getOne("Joueur","login='".$_POST["login"]."' AND password= '".$_POST["password"]."'");
+        var_dump($joueur);
+
+
+
+
+
+
+
 
 
     }
