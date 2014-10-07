@@ -85,6 +85,9 @@ class CJoueur extends \BaseController{
     }
 
 
+    public function head(){
+
+    }
 
     public function listerParties(){
 
