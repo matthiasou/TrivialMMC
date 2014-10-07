@@ -94,11 +94,11 @@ class CJoueur extends \BaseController{
         //Affiche toutes les parties en cours du joueur
 
         $idJoueur=$_SESSION['joueur1']->getId();
-        var_dump(DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur));
+        $partiesEnCours = DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur);
+        $partiesJoignables = DAO::getAll("Partie","idJoueur2 is NULL");
+        $this->loadView("vPartie",$partiesEnCours);
+        $this->loadView("vPartie",$partiesJoignables);
 
-        echo 'Parties que l on peut rejoindre';
-
-        DAO::getAll("Partie","idJoueur2 is NULL");
 
 
     }
