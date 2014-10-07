@@ -98,7 +98,7 @@ class CJoueur extends \BaseController{
 
         echo 'Parties que l on peut rejoindre';
 
-        var_dump(DAO::getAll("Partie","idJoueur2=NULL"));
+        DAO::getAll("Partie","idJoueur2 is NULL");
 
 
     }
