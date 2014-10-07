@@ -5,3 +5,8 @@ body{
 #divMessage{
 	font-size: large;
 }
+
+.head{
+    text-align: right;
+    background-color: aqua;
+}

@@ -60,6 +60,7 @@ class CJoueur extends \BaseController{
         else
             echo 'Identifiants incorrects';
 
+        $this->loadView("vHeader");
     }
 
 
@@ -85,9 +86,6 @@ class CJoueur extends \BaseController{
     }
 
 
-    public function head(){
-
-    }
 
     public function listerParties(){
 
