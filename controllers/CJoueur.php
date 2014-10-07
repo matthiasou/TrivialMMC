@@ -105,8 +105,6 @@ class CJoueur extends \BaseController{
 
     }
 
-    public function tetsts(){
 
-    }
 
 }
