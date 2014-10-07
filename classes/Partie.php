@@ -55,7 +55,7 @@ class Partie extends \BaseObject
 
     public function toString()
     {
-        return $this->joueur1;
+        return $this->joueur1->getNom();
 
     }
 }
