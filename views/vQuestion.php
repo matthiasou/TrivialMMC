@@ -7,7 +7,11 @@ foreach ($data->getReponses() as $reponse){
     echo "<input type='button' name='reponse' id='".$reponse->getId()."' class='reponse' value='".$reponse."'/></br>";
 }
 ?>
-<div id="messageReponse"></div>
+    <br/>
+
+    <div id="messageReponse">
+
+</div>
     <?php
 echo "<br/> Question soumise par ".$data->getJoueur()->getPrenom();
 

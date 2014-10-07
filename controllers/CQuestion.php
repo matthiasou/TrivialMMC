@@ -29,6 +29,10 @@ class CQuestion extends \BaseController {
     }
 
     public function checkAnswer($p){
-        var_dump($p);
+        $estBonne=DAO::getOne("Reponse",$p[0])->getEstBonne();
+        if($estBonne == 1)
+            echo "Bonne réponse";
+        else
+            echo "Mauvaise réponse";
     }
 } 
