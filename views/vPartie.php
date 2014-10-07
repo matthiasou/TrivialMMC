@@ -1,7 +1,7 @@
 <div id="divListe">
     <?php
-    foreach ($data as $partie){
-        echo $partie."</br>";
+    foreach ($data as $partiesJoignables){
+        echo $partiesJoignables."</br>";
     }
     ?>
 </div>
