@@ -100,7 +100,6 @@ class CJoueur extends \BaseController{
         $this->loadView("vPartie",$partiesJoignables);
 
 
-
     }
 
 }
