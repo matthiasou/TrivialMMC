@@ -96,6 +96,11 @@ class CJoueur extends \BaseController{
         $idJoueur=$_SESSION['joueur1']->getId();
         var_dump(DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur));
 
+        echo 'Parties que l on peut rejoindre';
+
+        var_dump(DAO::getAll("Partie","idJoueur2=NULL"));
+
+
     }
 
 }
