@@ -87,9 +87,13 @@ class CJoueur extends \BaseController{
 
 
     public function listerParties(){
-        //$parties=DAO::getOne("Partie", "ORDER BY idJoueurEnCours");
-        $parties=DAO::getOneToMany($_SESSION["joueur1"], "parties");
-        $this->loadView("vPartie", $parties);
+
+        //$parties=DAO::getOneToMany($_SESSION["joueur1"], "parties");
+        //$this->loadView("vPartie", $parties);
+        //Affiche toutes les parties en cours du joueur
+
+        $idJoueur=$_SESSION['joueur1']->getId();
+        var_dump(DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur));
 
     }
 
