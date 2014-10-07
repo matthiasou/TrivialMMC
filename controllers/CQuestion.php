@@ -7,6 +7,7 @@
  */
 
 class CQuestion extends \BaseController {
+    
     public function index(){
         $this->loadView("vHeader");
         $this->randomQuestion();
@@ -21,11 +22,13 @@ class CQuestion extends \BaseController {
 
     public function randomQuestion(){
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
-        $reponses=DAO::getOneToMany($question, "reponses");
-        echo $question;
+        DAO::getOneToMany($question, "reponses");
         //echo $reponses;
         $this->loadView("vQuestion", $question);
-        //var_dump($question);
+        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer", "{}", "#messageReponse");
     }
 
+    public function checkAnswer($p){
+        var_dump($p);
+    }
 } 
