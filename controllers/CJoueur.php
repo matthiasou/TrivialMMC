@@ -90,6 +90,7 @@ class CJoueur extends \BaseController{
 
         //$parties=DAO::getOneToMany($_SESSION["joueur1"], "parties");
         //$this->loadView("vPartie", $parties);
+
         //Affiche toutes les parties en cours du joueur
 
         $idJoueur=$_SESSION['joueur1']->getId();
