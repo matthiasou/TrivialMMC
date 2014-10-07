@@ -11,7 +11,7 @@ require_once 'technics/Gui.php';
 <title>TriviaMMC</title>
     <div class="head">
     <?php
-    echo "Connecté en tant que ".$_SESSION["joueur1"]->getPrenom();
+   // echo "Connecté en tant que ".$_SESSION["joueur1"]->getPrenom();
     ?>
     </div>
 </head>
