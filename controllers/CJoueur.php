@@ -23,6 +23,7 @@ class CJoueur extends \BaseController{
         echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}","#divMessage");
         echo JsUtils::getAndBindTo("#deconnexion", "click", "/trivia/CJoueur/deconnexion/", "{}","#divMessage");
 
+
         $this->listerParties();
 
 
@@ -60,20 +61,22 @@ class CJoueur extends \BaseController{
 
     public function connexion(){
         if($joueur=DAO::getOne("Joueur","login='".$_POST["login"]."' AND password= '".$_POST["password"]."'")){
-            var_dump($joueur);
+            //var_dump($joueur);
             $_SESSION["joueur1"] = $joueur;
-            var_dump($joueur);
+            //var_dump($joueur);
         }
         else
             echo 'Identifiants incorrects';
 
-        echo JsUtils::doSomethingOn("#frmConnexion","hide");
-        echo JsUtils::doSomethingOn("#inscription","hide");
+        //echo JsUtils::doSomethingOn("#frmConnexion","hide");
+        //echo JsUtils::doSomethingOn("#inscription","hide");
+        echo JsUtils::get("CJoueur/index", "{}", "body");
     }
 
     public function deconnexion(){
         session_destroy();
-        echo JsUtils::_get("CQuestion");
+        //echo "coucou";
+        echo JsUtils::get("CJoueur/index", "{}", "body");
     }
 
 
@@ -129,14 +132,10 @@ class CJoueur extends \BaseController{
             //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
 
             $this->loadView("vPartie", array("pEnCours" => $partiesEnCours, "pJoignables" => $partiesJoignables));
+            echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CQuestion/randomQuestion", "{}","#divMessage");
         }
 
 
-    }
-
-    public function rejoindre(){
-        $this->listerParties();
-        $this->affichHead();
     }
 
 
