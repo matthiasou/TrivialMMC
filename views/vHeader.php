@@ -10,9 +10,9 @@ require_once 'technics/Gui.php';
 <link rel="stylesheet" type="text/css" href="<?php echo $GLOBALS["siteUrl"]?>css/main.css">
 <title>TriviaMMC</title>
     <div class="head">
-    <?php
-   // echo "Connecté en tant que ".$_SESSION["joueur1"]->getPrenom();
-    ?>
+        <?php
+        echo $data;
+        ?>
     </div>
 </head>
 <body>

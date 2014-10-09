@@ -2,12 +2,12 @@
 
 class CJoueur extends \BaseController{
 
-	public function index(){ 
+
+	public function index(){
 		$this->loadView("vHeader");
 		$this->refresh();
 		echo "<div id='divMessage'></div>";
 	}
-
 	public function refresh(){
 		//$joueurs=DAO::getAll("Joueur");
 		//$this->loadView("vJoueurs",$joueurs);
@@ -16,9 +16,12 @@ class CJoueur extends \BaseController{
         $this->loadView("VConnexion");
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion","#divMessage");
         echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}","#divMessage");
+        $this->listerParties();
+        $this->affichHead();
+
+
 
 	}
-
 	public function delete($params){
 		$param=str_replace("delete", "", $params[0]);
 		$joueur=DAO::getOne("Joueur", $param);
@@ -50,7 +53,6 @@ class CJoueur extends \BaseController{
 		}
 
     public function connexion(){
-        //$touslesjoueurs=DAO::getAll("Joueur");
         if($joueur=DAO::getOne("Joueur","login='".$_POST["login"]."' AND password= '".$_POST["password"]."'")){
             var_dump($joueur);
             $_SESSION["joueur1"] = $joueur;
@@ -59,8 +61,11 @@ class CJoueur extends \BaseController{
         else
             echo 'Identifiants incorrects';
 
-        $this->loadView("vHeader");
+        echo JsUtils::doSomethingOn("#frmConnexion","hide");
+        echo JsUtils::doSomethingOn("#inscription","hide");
     }
+
+
 
     public function viewInscription (){
         echo JsUtils::doSomethingOn("#frmConnexion","hide");
@@ -68,8 +73,8 @@ class CJoueur extends \BaseController{
         $this->loadView("VInscription");
         echo JsUtils::postFormAndBindTo("#btValider3","click","/trivia/CJoueur/inscription/","frmInscription","#divMessage");
 
-    }
 
+    }
     public function inscription() {
 
         $joueur=new Joueur();
@@ -80,6 +85,18 @@ class CJoueur extends \BaseController{
             echo "Insertion de ".$joueur." ok";
         //echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
 
+    }
+
+    public function affichHead(){
+        if(isset($_SESSION['joueur1']))
+        {
+            $result= "Connecté en tant que <span class='headName'>".$_SESSION["joueur1"]->getPrenom()."</span>";
+        }
+        else
+        {
+            $result= "<a href='CJoueur'>Connectez-vous</a>";
+        }
+        $this->loadView("vHeader", $result);
     }
 
     public function listerParties(){
@@ -95,11 +112,17 @@ class CJoueur extends \BaseController{
         $partiesEnCours = DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur);
         // Affiche les parties qui sont possible à rejoindre
         $partiesJoignables = DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur");
+        //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
+
+        $this->loadView("vPartie",array("pEnCours"=>$partiesEnCours,"pJoignables"=>$partiesJoignables));
 
 
-        $this->loadView("vPartie",$partiesEnCours);
-        $this->loadView("vPartie",$partiesJoignables);
 
+    }
+
+    public function rejoindre(){
+        $this->listerParties();
+        $this->affichHead();
     }
 
 
