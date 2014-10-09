@@ -2,12 +2,12 @@
 
 class CJoueur extends \BaseController{
 
-
 	public function index(){ 
 		$this->loadView("vHeader");
 		$this->refresh();
 		echo "<div id='divMessage'></div>";
 	}
+
 	public function refresh(){
 		//$joueurs=DAO::getAll("Joueur");
 		//$this->loadView("vJoueurs",$joueurs);
@@ -17,9 +17,8 @@ class CJoueur extends \BaseController{
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion","#divMessage");
         echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}","#divMessage");
 
-
-
 	}
+
 	public function delete($params){
 		$param=str_replace("delete", "", $params[0]);
 		$joueur=DAO::getOne("Joueur", $param);
@@ -63,16 +62,14 @@ class CJoueur extends \BaseController{
         $this->loadView("vHeader");
     }
 
-
-
     public function viewInscription (){
         echo JsUtils::doSomethingOn("#frmConnexion","hide");
         echo JsUtils::doSomethingOn("#inscription","hide");
         $this->loadView("VInscription");
         echo JsUtils::postFormAndBindTo("#btValider3","click","/trivia/CJoueur/inscription/","frmInscription","#divMessage");
 
-
     }
+
     public function inscription() {
 
         $joueur=new Joueur();
@@ -84,8 +81,6 @@ class CJoueur extends \BaseController{
         //echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
 
     }
-
-
 
     public function listerParties(){
 
@@ -104,7 +99,6 @@ class CJoueur extends \BaseController{
 
         $this->loadView("vPartie",$partiesEnCours);
         $this->loadView("vPartie",$partiesJoignables);
-
 
     }
 
