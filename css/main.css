@@ -9,4 +9,10 @@ body{
 .head{
     text-align: right;
     background-color: aqua;
+    position:fixed;
+    top:0px;
+    right:0px;
+}
+.headName{
+    font-weight: bold;
 }

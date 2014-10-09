@@ -11,14 +11,7 @@ require_once 'technics/Gui.php';
 <title>TriviaMMC</title>
     <div class="head">
         <?php
-        if(isset($_SESSION['joueur1']))
-        {
-            echo "Connecté en tant que ".$_SESSION["joueur1"]->getPrenom();
-        }
-        else
-        {
-            echo "<a href='CJoueur'>Connectez-vous</a>";
-        }
+        echo $data;
         ?>
     </div>
 </head>
