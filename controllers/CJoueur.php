@@ -100,11 +100,15 @@ class CJoueur extends \BaseController{
         $partiesEnCours = DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur);
         // Affiche les parties qui sont possible à rejoindre
         $partiesJoignables = DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur");
+        //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
+
+        $this->loadView("vPartie",array("pEnCours"=>$partiesEnCours,"pJoignables"=>$partiesJoignables));
 
 
-        $this->loadView("vPartie",$partiesEnCours);
-        $this->loadView("vPartie",$partiesJoignables);
 
+    }
+
+    public function rejoindre(){
 
     }
 
