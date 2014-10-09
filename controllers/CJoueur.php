@@ -89,18 +89,17 @@ class CJoueur extends \BaseController{
 
     public function listerParties(){
 
-        //$parties=DAO::getOneToMany($_SESSION["joueur1"], "parties");
-        //$this->loadView("vPartie", $parties);
 
         //Affiche toutes les parties en cours du joueur
 
         $idJoueur=$_SESSION['joueur1']->getId();
 
         // Affiche toutes les parties ou est le joueur
-        $partiesEnCours = DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur);
+        $partiesEnCours = DAO::getAll("Partie","idJoueur1=".$idJoueur." OR idJoueur2=".$idJoueur);
         // Affiche les parties qui sont possible à rejoindre
         $partiesJoignables = DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur");
-        //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
+
+        //var_dump( DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur));
 
         $this->loadView("vPartie",array("pEnCours"=>$partiesEnCours,"pJoignables"=>$partiesJoignables));
 
@@ -109,6 +108,9 @@ class CJoueur extends \BaseController{
     }
 
     public function rejoindre(){
+
+
+
 
     }
 
