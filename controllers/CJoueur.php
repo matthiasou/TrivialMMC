@@ -3,7 +3,7 @@
 class CJoueur extends \BaseController{
 
 
-	public function index(){ 
+	public function index(){
 		$this->loadView("vHeader");
 		$this->refresh();
 		echo "<div id='divMessage'></div>";
@@ -16,6 +16,8 @@ class CJoueur extends \BaseController{
         $this->loadView("VConnexion");
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion","#divMessage");
         echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}","#divMessage");
+        $this->listerParties();
+        $this->affichHead();
 
 
 
@@ -51,7 +53,6 @@ class CJoueur extends \BaseController{
 		}
 
     public function connexion(){
-        //$touslesjoueurs=DAO::getAll("Joueur");
         if($joueur=DAO::getOne("Joueur","login='".$_POST["login"]."' AND password= '".$_POST["password"]."'")){
             var_dump($joueur);
             $_SESSION["joueur1"] = $joueur;
@@ -60,7 +61,8 @@ class CJoueur extends \BaseController{
         else
             echo 'Identifiants incorrects';
 
-        $this->loadView("vHeader");
+        echo JsUtils::doSomethingOn("#frmConnexion","hide");
+        echo JsUtils::doSomethingOn("#inscription","hide");
     }
 
 
@@ -85,7 +87,17 @@ class CJoueur extends \BaseController{
 
     }
 
-
+    public function affichHead(){
+        if(isset($_SESSION['joueur1']))
+        {
+            $result= "Connecté en tant que <span class='headName'>".$_SESSION["joueur1"]->getPrenom()."</span>";
+        }
+        else
+        {
+            $result= "<a href='CJoueur'>Connectez-vous</a>";
+        }
+        $this->loadView("vHeader", $result);
+    }
 
     public function listerParties(){
 
@@ -109,7 +121,8 @@ class CJoueur extends \BaseController{
     }
 
     public function rejoindre(){
-
+        $this->listerParties();
+        $this->affichHead();
     }
 
 
