@@ -8,6 +8,7 @@ class CJoueur extends \BaseController{
 		$this->refresh();
 		echo "<div id='divMessage'></div>";
 	}
+
 	public function refresh(){
 		//$joueurs=DAO::getAll("Joueur");
 		//$this->loadView("vJoueurs",$joueurs);
@@ -109,6 +110,7 @@ class CJoueur extends \BaseController{
         $this->loadView("vHeader", $result);
     }
 
+
     public function listerParties(){
 
         //$parties=DAO::getOneToMany($_SESSION["joueur1"], "parties");
@@ -117,15 +119,14 @@ class CJoueur extends \BaseController{
         //Affiche toutes les parties en cours du joueur
         if (isset ($_SESSION['joueur1'])) {
 
-        $idJoueur=$_SESSION['joueur1']->getId();
 
-        // Affiche toutes les parties ou est le joueur
-        $partiesEnCours = DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur);
-        // Affiche les parties qui sont possible à rejoindre
-        $partiesJoignables = DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur");
-        //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
+            $idJoueur = $_SESSION['joueur1']->getId();
 
-        $this->loadView("vPartie",array("pEnCours"=>$partiesEnCours,"pJoignables"=>$partiesJoignables));
+            // Affiche toutes les parties ou est le joueur
+            $partiesEnCours = DAO::getAll("Partie", "idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur);
+            // Affiche les parties qui sont possible à rejoindre
+            $partiesJoignables = DAO::getAll("Partie", "idJoueur2 is NULL AND idJoueur1 != $idJoueur");
+            //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
 
             $this->loadView("vPartie", array("pEnCours" => $partiesEnCours, "pJoignables" => $partiesJoignables));
         }
