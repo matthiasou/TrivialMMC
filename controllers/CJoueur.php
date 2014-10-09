@@ -73,7 +73,7 @@ class CJoueur extends \BaseController{
 
     public function deconnexion(){
         session_destroy();
-        echo JsUtils::get("CQuestion");
+        echo JsUtils::_get("CQuestion");
     }
 
 
