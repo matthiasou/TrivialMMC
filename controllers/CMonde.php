@@ -57,6 +57,6 @@ class CMonde extends \BaseController {
     }
 
     public function listerMondes(){
-
+        echo "nique ta mère";
     }
 } 
