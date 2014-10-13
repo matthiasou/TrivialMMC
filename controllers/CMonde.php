@@ -10,15 +10,17 @@ class CMonde extends \BaseController {
 
     public function index(){
         $this->loadView("vHeader");
-        $this->refresh();
+        $this->viewAddNew();
+        $this->load();
         echo "<div id='divMessage'></div>";
     }
 
     public function refresh()
     {
         $this->loadView("VAddMonde");
-        echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion", "#divMessage");
-        echo JsUtils::getAndBindTo("#ajouterMonde", "click", "/trivia/CMonde/viewAjoutMonde/", "{}", "#divMessage");
+        echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CMonde/creerMonde/", "frmConnexion", "#divMessage");
+        //echo JsUtils::getAndBindTo("#ajouterMonde", "click", "/trivia/CMonde/viewAjoutMonde/", "{}", "#divMessage");
+        $this->load();
     }
 
     public function load(){
@@ -27,7 +29,7 @@ class CMonde extends \BaseController {
 
     public function viewAddNew(){
         $this->loadView("VAddMonde");
-        echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CMonde/addNew/", "frmAddMonde","#divMessage");
+        echo JsUtils::getAndBindTo("#btValider", "click", "/trivia/CMonde/creerMonde/", "frmAddMonde","#divMessage");
     }
 
     public function addNew(){
@@ -46,12 +48,12 @@ class CMonde extends \BaseController {
     }
 
     public function creerMonde(){
-            $monde=new Monde();
-            RequestUtils::setValuesToObject($monde);
-            $test=DAO::getOne("libelle", $_POST["libelle"]);
-            $monde->setMonde($test);
-            if(DAO::insert($monde)==1)
-                echo "Insertion du monde ".$monde." ok";
+        $monde=new Monde();
+        RequestUtils::setValuesToObject($monde);
+        //$test=DAO::getOne("libelle", $_POST["libelle"]);
+        //$monde->setMonde($test);
+        if(DAO::insert($monde)==1)
+            echo "Insertion du monde ".$monde." ok";
     }
 
     public function listerMondes(){
