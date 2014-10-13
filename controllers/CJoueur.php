@@ -8,16 +8,23 @@ class CJoueur extends \BaseController{
 		$this->refresh();
 		echo "<div id='divMessage'></div>";
 	}
+
 	public function refresh(){
 		//$joueurs=DAO::getAll("Joueur");
 		//$this->loadView("vJoueurs",$joueurs);
 		//echo JsUtils::getAndBindTo("#addNew", "click", "/trivia/CJoueur/viewAddNew/","{}","#divFrm");
 		//echo JsUtils::getAndBindTo(".delete", "click", "/trivia/CJoueur/delete","{}","#divMessage");
-        $this->loadView("VConnexion");
+        if (!isset($_SESSION['joueur1']))
+        {
+            $this->loadView("VConnexion");
+        }
+        $this->affichHead();
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion","#divMessage");
         echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}","#divMessage");
+        echo JsUtils::getAndBindTo("#deconnexion", "click", "/trivia/CJoueur/deconnexion/", "{}","#divMessage");
+
+
         $this->listerParties();
-        $this->affichHead();
 
 
 
@@ -54,17 +61,23 @@ class CJoueur extends \BaseController{
 
     public function connexion(){
         if($joueur=DAO::getOne("Joueur","login='".$_POST["login"]."' AND password= '".$_POST["password"]."'")){
-            var_dump($joueur);
+            //var_dump($joueur);
             $_SESSION["joueur1"] = $joueur;
-            var_dump($joueur);
+            //var_dump($joueur);
         }
         else
             echo 'Identifiants incorrects';
 
-        echo JsUtils::doSomethingOn("#frmConnexion","hide");
-        echo JsUtils::doSomethingOn("#inscription","hide");
+        //echo JsUtils::doSomethingOn("#frmConnexion","hide");
+        //echo JsUtils::doSomethingOn("#inscription","hide");
+        echo JsUtils::get("CJoueur/index", "{}", "body");
     }
 
+    public function deconnexion(){
+        session_destroy();
+        //echo "coucou";
+        echo JsUtils::get("CJoueur/index", "{}", "body");
+    }
 
 
     public function viewInscription (){
@@ -90,7 +103,8 @@ class CJoueur extends \BaseController{
     public function affichHead(){
         if(isset($_SESSION['joueur1']))
         {
-            $result= "Connecté en tant que <span class='headName'>".$_SESSION["joueur1"]->getPrenom()."</span>";
+            $result= "Connecté en tant que <span class='headName'>".$_SESSION["joueur1"]->getPrenom()."</span><a id='deconnexion' href='#'> Deconnexion</a>";
+
         }
         else
         {
@@ -99,30 +113,25 @@ class CJoueur extends \BaseController{
         $this->loadView("vHeader", $result);
     }
 
+
     public function listerParties(){
-
-        //$parties=DAO::getOneToMany($_SESSION["joueur1"], "parties");
-        //$this->loadView("vPartie", $parties);
-
-        //Affiche toutes les parties en cours du joueur
-
-        $idJoueur=$_SESSION['joueur1']->getId();
-
-        // Affiche toutes les parties ou est le joueur
-        $partiesEnCours = DAO::getAll("Partie","idJoueur1=".$idJoueur." <> idJoueur2=".$idJoueur);
-        // Affiche les parties qui sont possible à rejoindre
-        $partiesJoignables = DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur");
-        //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
-
-        $this->loadView("vPartie",array("pEnCours"=>$partiesEnCours,"pJoignables"=>$partiesJoignables));
+        if (isset ($_SESSION['joueur1'])) {
 
 
+            $idJoueur = $_SESSION['joueur1']->getId();
 
-    }
+            // Affiche toutes les parties ou est le joueur
+            $partiesEnCours = DAO::getAll("Partie", "idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur);
+            // Affiche les parties qui sont possible à rejoindre
+            $partiesJoignables = DAO::getAll("Partie", "idJoueur2 is NULL AND idJoueur1 != $idJoueur");
+            //var_dump( DAO::getAll("Partie", "idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur));
 
-    public function rejoindre(){
-        $this->listerParties();
-        $this->affichHead();
+            $this->loadView("vPartie", array("pEnCours" => $partiesEnCours, "pJoignables" => $partiesJoignables));
+            echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CQuestion/randomQuestion", "{}","#divMessage");
+
+        }
+
+
     }
 
 

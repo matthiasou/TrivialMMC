@@ -21,6 +21,7 @@ class CQuestion extends \BaseController {
     }
 
     public function randomQuestion(){
+        echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
         DAO::getOneToMany($question, "reponses");
         //echo $reponses;
