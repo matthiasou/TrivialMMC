@@ -115,6 +115,11 @@ class CJoueur extends \BaseController{
 
 
     public function listerParties(){
+
+        //$parties=DAO::getOneToMany($_SESSION["joueur1"], "parties");
+        //$this->loadView("vPartie", $parties);
+
+        //Affiche toutes les parties en cours du joueur
         if (isset ($_SESSION['joueur1'])) {
 
 
@@ -124,13 +129,16 @@ class CJoueur extends \BaseController{
             $partiesEnCours = DAO::getAll("Partie", "idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur);
             // Affiche les parties qui sont possible à rejoindre
             $partiesJoignables = DAO::getAll("Partie", "idJoueur2 is NULL AND idJoueur1 != $idJoueur");
-            //var_dump( DAO::getAll("Partie", "idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur));
+            //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
 
             $this->loadView("vPartie", array("pEnCours" => $partiesEnCours, "pJoignables" => $partiesJoignables));
             echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CQuestion/randomQuestion", "{}","#divMessage");
-
         }
 
+
+    }
+
+    public function statPartie(){
 
     }
 
