@@ -8,9 +8,9 @@
 
     echo "</br>Parties en cours :</br></br>";
     foreach ($data["pEnCours"] as $partiesEnCours){
-        if($partiesEnCours == $_SESSION['joueur1']->getNom())
-            echo $partiesEnCours->getJoueur1()->getPrenom() . " vs " . $partiesEnCours . "<a class='jouer' href='#' id='jouer".$partiesEnCours->getId()."'> Jouer</a></br>";
-    else
+        if($partiesEnCours->getJoueurEnCours()->getId() == $_SESSION['joueur1']->getId())
+            echo $partiesEnCours->getJoueur1()->getPrenom() . " vs " . $partiesEnCours->getJoueur2()->getPrenom() . "<a class='jouer' href='#' id='jouer".$partiesEnCours->getId()."'> Jouer</a></br>";
+        else
             echo $partiesEnCours->getJoueur1()->getPrenom() . " vs " . $partiesEnCours->getJoueur2()->getPrenom() . " (en attente de l'autre joueur)<br/>";
         //echo $partiesEnCours."</br>";
     }

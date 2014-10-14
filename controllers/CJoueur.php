@@ -126,7 +126,7 @@ class CJoueur extends \BaseController{
             $idJoueur = $_SESSION['joueur1']->getId();
 
             // Affiche toutes les parties ou est le joueur
-            $partiesEnCours = DAO::getAll("Partie", "idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur);
+            $partiesEnCours = DAO::getAll("Partie", "(idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur . ") AND idJoueur2 IS NOT NULL");
             // Affiche les parties qui sont possible à rejoindre
             $partiesJoignables = DAO::getAll("Partie", "idJoueur2 is NULL AND idJoueur1 != $idJoueur");
             //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
