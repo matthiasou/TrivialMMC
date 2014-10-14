@@ -9,11 +9,37 @@ class Partie extends \BaseObject
      * @JoinColumn(name="idJoueur1",className="Joueur")
      */
     private $joueur1;
+
+
+
     /**
      * @ManyToOne
      * @JoinColumn(name="idJoueur2",className="Joueur")
      */
     private $joueur2;
+
+
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idJoueurEnCours",className="Joueur")
+     */
+    private $joueurEnCours;
+
+    /**
+     * @return mixed
+     */
+    public function getJoueurEnCours()
+    {
+        return $this->joueurEnCours;
+    }
+
+    /**
+     * @param mixed $joueurEnCours
+     */
+    public function setJoueurEnCours($joueurEnCours)
+    {
+        $this->joueurEnCours = $joueurEnCours;
+    }
 
     /**
      * @return mixed
@@ -52,6 +78,9 @@ class Partie extends \BaseObject
         $this->joueur1 = $joueur1;
         return $this;
     }
+
+
+
 
     public function toString()
     {
