@@ -16,7 +16,7 @@ class Monde extends \BaseObject{
 	/* (non-PHPdoc)
 	 * @see BaseObject::toString()
 	 */
-	public function toString() {
+	public function _toString() {
 		return $this->libelle;
 
 	}
