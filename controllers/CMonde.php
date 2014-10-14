@@ -29,6 +29,8 @@ class CMonde extends \BaseController {
             echo "Nouveau monde " . $monde->getLibelle() . " ajouté avec succès";
         else
             echo "Impossible d'ajouter un nouveau monde";
+
+        merde
     }
 
 } 
