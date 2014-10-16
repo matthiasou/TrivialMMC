@@ -28,7 +28,7 @@ class CMonde extends \BaseController {
         if(DAO::insert($monde)==1)
             echo "Nouveau monde " . $monde->getLibelle() . " ajouté avec succès";
         else
-            echo "Impossible d'ajouter un nouveau monde";
+            echo "Erreur. Impossible d'ajouter ce nouveau monde";
     }
 
 } 
