@@ -15,4 +15,11 @@ class CPartie extends \BaseController {
         var_dump(DAO::getAll("Partie"));
     }
 
+    public function jouer(){
+
+
+
+
+    }
+
 } 
