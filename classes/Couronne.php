@@ -1,50 +1,31 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: charlesleducq
- * Date: 02/10/2014
- * Time: 11:12
+ * User: matthiaslecomte
+ * Date: 16/10/14
+ * Time: 10:04
  */
 
-class Score extends \BaseObject{
+class Couronne extends \BaseObject {
     private $idPartie;
     private $idJoueur;
-    private $nbBonnesReponses;
+    private $idDomaine;
 
     /**
      * @return mixed
      */
-    public function getNbBonnesReponses()
+    public function getIdDomaine()
     {
-        return $this->nbBonnesReponses;
+        return $this->idDomaine;
     }
 
     /**
-     * @param mixed $nbBonnesReponses
+     * @param mixed $idDomaine
      */
-    public function setNbBonnesReponses($nbBonnesReponses)
+    public function setIdDomaine($idDomaine)
     {
-        $this->nbBonnesReponses = $nbBonnesReponses;
+        $this->idDomaine = $idDomaine;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getNbManches()
-    {
-        return $this->nbManches;
-    }
-
-    /**
-     * @param mixed $nbManches
-     */
-    public function setNbManches($nbManches)
-    {
-        $this->nbManches = $nbManches;
-    }
-    private $nbManches;
-
-
 
     /**
      * @return mixed
@@ -77,6 +58,5 @@ class Score extends \BaseObject{
     {
         $this->idPartie = $idPartie;
     }
-
 
 } 

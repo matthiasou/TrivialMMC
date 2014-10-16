@@ -15,4 +15,12 @@ class CPartie extends \BaseController {
         var_dump(DAO::getAll("Partie"));
     }
 
+    public function jouer(){
+        // Afficher une question
+        // Si bonne autre question sinon à l'autre joueur de jouer
+
+
+
+    }
+
 } 
