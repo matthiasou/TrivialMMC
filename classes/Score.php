@@ -9,23 +9,42 @@
 class Score extends \BaseObject{
     private $idPartie;
     private $idJoueur;
-    private $idDomaine;
+    private $nbBonnesReponses;
 
     /**
      * @return mixed
      */
-    public function getIdDomaine()
+    public function getNbBonnesReponses()
     {
-        return $this->idDomaine;
+        return $this->nbBonnesReponses;
     }
 
     /**
-     * @param mixed $idDomaine
+     * @param mixed $nbBonnesReponses
      */
-    public function setIdDomaine($idDomaine)
+    public function setNbBonnesReponses($nbBonnesReponses)
     {
-        $this->idDomaine = $idDomaine;
+        $this->nbBonnesReponses = $nbBonnesReponses;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNbManches()
+    {
+        return $this->nbManches;
+    }
+
+    /**
+     * @param mixed $nbManches
+     */
+    public function setNbManches($nbManches)
+    {
+        $this->nbManches = $nbManches;
+    }
+    private $nbManches;
+
+
 
     /**
      * @return mixed
