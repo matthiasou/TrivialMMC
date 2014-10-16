@@ -16,7 +16,10 @@ class CPartie extends \BaseController {
     }
 
     public function jouer(){
-
+        // Afficher une question
+        // Si bonne autre question sinon à l'autre joueur de jouer
+        $question = new CQuestion();
+        $question->randomQuestion();
 
 
 

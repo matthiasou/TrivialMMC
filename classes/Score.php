@@ -10,6 +10,8 @@ class Score extends \BaseObject{
     private $idPartie;
     private $idJoueur;
     private $nbBonnesReponses;
+    private $nbManches;
+
 
     /**
      * @return mixed
@@ -42,7 +44,7 @@ class Score extends \BaseObject{
     {
         $this->nbManches = $nbManches;
     }
-    private $nbManches;
+
 
 
 

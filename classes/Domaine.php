@@ -15,7 +15,23 @@ class Domaine extends \BaseObject{
      * @ManyToOne
      * @JoinColumn(name="idMonde",className="Monde")
      */
-    private $idMonde;
+    private $monde;
+
+    /**
+     * @return mixed
+     */
+    public function getMonde()
+    {
+        return $this->monde;
+    }
+
+    /**
+     * @param mixed $monde
+     */
+    public function setMonde($monde)
+    {
+        $this->monde = $monde;
+    }
 
 
     /**
@@ -53,23 +69,6 @@ class Domaine extends \BaseObject{
     public function setDescription($description)
     {
         $this->description = $description;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getIdMonde()
-    {
-        return $this->idMonde;
-    }
-
-    /**
-     * @param mixed $idMonde
-     */
-    public function setIdMonde($idMonde)
-    {
-        $this->idMonde = $idMonde;
     }
 
     /**
