@@ -139,7 +139,7 @@ class CJoueur extends \BaseController{
     }
 
     public function statPartie(){
-
+        echo "test Mathias";
     }
 
 
