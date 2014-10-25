@@ -7,11 +7,21 @@
  */
 
 class Score extends \BaseObject{
-    private $idPartie;
-    private $idJoueur;
+
     private $nbBonnesReponses;
     private $nbManches;
 
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idPartie",className="Partie")
+     */
+    private $Partie;
+
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idJoueur",className="Joueur")
+     */
+    private $Joueur;
 
     /**
      * @return mixed
@@ -45,40 +55,38 @@ class Score extends \BaseObject{
         $this->nbManches = $nbManches;
     }
 
-
-
-
     /**
      * @return mixed
      */
-    public function getIdJoueur()
+    public function getJoueur()
     {
-        return $this->idJoueur;
+        return $this->Joueur;
     }
 
     /**
-     * @param mixed $idJoueur
+     * @param mixed $Joueur
      */
-    public function setIdJoueur($idJoueur)
+    public function setJoueur($Joueur)
     {
-        $this->idJoueur = $idJoueur;
+        $this->Joueur = $Joueur;
     }
 
     /**
      * @return mixed
      */
-    public function getIdPartie()
+    public function getPartie()
     {
-        return $this->idPartie;
+        return $this->Partie;
     }
 
     /**
-     * @param mixed $idPartie
+     * @param mixed $Partie
      */
-    public function setIdPartie($idPartie)
+    public function setPartie($Partie)
     {
-        $this->idPartie = $idPartie;
+        $this->Partie = $Partie;
     }
+
 
 
 } 
