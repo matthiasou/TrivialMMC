@@ -87,6 +87,14 @@ class Score extends \BaseObject{
         $this->Partie = $Partie;
     }
 
+    public function incNbManches() {
+        $this->nbManches++;
+    }
+
+    public function incNbBonnesReponses() {
+        $this->nbBonnesReponses++;
+    }
+
 
 
 } 

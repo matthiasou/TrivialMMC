@@ -8,7 +8,22 @@
 
 
 class Signalement {
-    private $idProbleme, $idJoueur, $idQuestion, $dateS;
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idProbleme",className="Probleme")
+     */
+    private $idProbleme;
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idJoueur",className="Joueur")
+     */
+    private $idJoueur;
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idQuestion",className="Question")
+     */
+    private $idQuestion;
+    private $dateS;
 
     /**
      * @return mixed

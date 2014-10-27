@@ -7,56 +7,72 @@
  */
 
 class Couronne extends \BaseObject {
-    private $idPartie;
-    private $idJoueur;
-    private $idDomaine;
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idPartie",className="Partie")
+     */
+    private $Partie;
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idJoueur",className="Joueur")
+     */
+    private $Joueur;
 
     /**
      * @return mixed
      */
-    public function getIdDomaine()
+    /**
+     * @ManyToOne
+     * @JoinColumn(name="idDomaine",className="Domaine")
+     */
+    private $Domaine;
+
+    public function getDomaine()
     {
-        return $this->idDomaine;
+        return $this->Domaine;
     }
 
     /**
-     * @param mixed $idDomaine
+     * @param mixed $Domaine
      */
-    public function setIdDomaine($idDomaine)
+    public function setDomaine($Domaine)
     {
-        $this->idDomaine = $idDomaine;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdJoueur()
-    {
-        return $this->idJoueur;
-    }
-
-    /**
-     * @param mixed $idJoueur
-     */
-    public function setIdJoueur($idJoueur)
-    {
-        $this->idJoueur = $idJoueur;
+        $this->Domaine = $Domaine;
     }
 
     /**
      * @return mixed
      */
-    public function getIdPartie()
+    public function getJoueur()
     {
-        return $this->idPartie;
+        return $this->Joueur;
     }
 
     /**
-     * @param mixed $idPartie
+     * @param mixed $Joueur
      */
-    public function setIdPartie($idPartie)
+    public function setJoueur($Joueur)
     {
-        $this->idPartie = $idPartie;
+        $this->Joueur = $Joueur;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPartie()
+    {
+        return $this->Partie;
+    }
+
+    /**
+     * @param mixed $Partie
+     */
+    public function setPartie($Partie)
+    {
+        $this->Partie = $Partie;
+    }
+
+
+
 
 } 

@@ -28,6 +28,25 @@ class Partie extends \BaseObject
     /**
      * @return mixed
      */
+
+    private $partieFini;
+
+    /**
+     * @return mixed
+     */
+    public function getPartieFini()
+    {
+        return $this->partieFini;
+    }
+
+    /**
+     * @param mixed $partieFini
+     */
+    public function setPartieFini($partieFini)
+    {
+        $this->partieFini = $partieFini;
+    }
+
     public function getJoueurEnCours()
     {
         return $this->joueurEnCours;
