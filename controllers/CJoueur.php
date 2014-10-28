@@ -44,6 +44,8 @@ class CJoueur extends \BaseController{
 		}
 		echo "</div>";
 	}
+
+
 	public function viewAddNew(){
 		$this->loadView("vAddJoueur");
 		echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/addNew/", "frmAdd","#divMessage");

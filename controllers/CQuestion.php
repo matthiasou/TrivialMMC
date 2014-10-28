@@ -22,7 +22,7 @@ class CQuestion extends \BaseController {
     public function randomQuestion($params){
         var_dump($params[0]);
         $aChanger = array("jouer", "rejoindre");
-        $idPartie = str_replace($aChanger, "", $params[0]);
+        $idPartie = str_replace($aChanger, "", $params[0]); // récupere l'id de la partie
         var_dump($idPartie);
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
@@ -33,15 +33,20 @@ class CQuestion extends \BaseController {
     }
 
     public function checkAnswer($p){
-        var_dump($p);
+        var_dump($p);// id de la partie
         $idJoueur = $_SESSION['joueur1']->getId();
         $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
         if($estBonne == 1){
             echo "Bonne réponse";
             $score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
-            var_dump($score);
+           // var_dump($score);
+            $score->incNbBonnesReponses();
             //$score->setNbBonnesReponses($score->getNbBonnesReponses()+1);
-            $score->setNbBonnesReponses(2);
+            echo 'affichage du nombre de bonnes réponses:';
+            $test = $score->getNbBonnesReponses();
+            echo $test;
+            //$score->setNbBonnesReponses(2);
+
             DAO::update($score);
 
             }
