@@ -9,20 +9,32 @@
 
 class Signalement {
     /**
+     * @Id
+     */
+    private $idJoueur;
+    /**
+     * @Id
+     */
+    private $idProbleme;
+    /**
+     * @Id
+     */
+    private $idQuestion;
+    /**
      * @ManyToOne
      * @JoinColumn(name="idProbleme",className="Probleme")
      */
-    private $idProbleme;
+    private $probleme;
     /**
      * @ManyToOne
      * @JoinColumn(name="idJoueur",className="Joueur")
      */
-    private $idJoueur;
+    private $joueur;
     /**
      * @ManyToOne
      * @JoinColumn(name="idQuestion",className="Question")
      */
-    private $idQuestion;
+    private $question;
     private $dateS;
 
     /**
@@ -88,5 +100,54 @@ class Signalement {
     {
         $this->idQuestion = $idQuestion;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getJoueur()
+    {
+        return $this->joueur;
+    }
+
+    /**
+     * @param mixed $joueur
+     */
+    public function setJoueur($joueur)
+    {
+        $this->joueur = $joueur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProbleme()
+    {
+        return $this->probleme;
+    }
+
+    /**
+     * @param mixed $probleme
+     */
+    public function setProbleme($probleme)
+    {
+        $this->probleme = $probleme;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * @param mixed $question
+     */
+    public function setQuestion($question)
+    {
+        $this->question = $question;
+    }
+
 
 } 

@@ -10,18 +10,89 @@ class Score extends \BaseObject{
 
     private $nbBonnesReponses;
     private $nbManches;
-
+    /**
+     * @Id
+     */
+    private $idPartie;
+    /**
+     * @Id
+     */
+    private $idJoueur;
     /**
      * @ManyToOne
      * @JoinColumn(name="idPartie",className="Partie")
      */
-    private $Partie;
+    private $partie;
 
     /**
      * @ManyToOne
      * @JoinColumn(name="idJoueur",className="Joueur")
      */
-    private $Joueur;
+    private $joueur;
+
+    /**
+     * @return mixed
+     */
+    public function getPartie()
+    {
+        return $this->partie;
+    }
+
+    /**
+     * @param mixed $partie
+     */
+    public function setPartie($partie)
+    {
+        $this->partie = $partie;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJoueur()
+    {
+        return $this->joueur;
+    }
+
+    /**
+     * @param mixed $joueur
+     */
+    public function setJoueur($joueur)
+    {
+        $this->joueur = $joueur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdPartie()
+    {
+        return $this->idPartie;
+    }
+
+    /**
+     * @param mixed $idPartie
+     */
+    public function setIdPartie($idPartie)
+    {
+        $this->idPartie = $idPartie;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdJoueur()
+    {
+        return $this->idJoueur;
+    }
+
+    /**
+     * @param mixed $idJoueur
+     */
+    public function setIdJoueur($idJoueur)
+    {
+        $this->idJoueur = $idJoueur;
+    }
 
     /**
      * @return mixed
@@ -55,37 +126,6 @@ class Score extends \BaseObject{
         $this->nbManches = $nbManches;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getJoueur()
-    {
-        return $this->Joueur;
-    }
-
-    /**
-     * @param mixed $Joueur
-     */
-    public function setJoueur($Joueur)
-    {
-        $this->Joueur = $Joueur;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPartie()
-    {
-        return $this->Partie;
-    }
-
-    /**
-     * @param mixed $Partie
-     */
-    public function setPartie($Partie)
-    {
-        $this->Partie = $Partie;
-    }
 
     public function incNbManches() {
         $this->nbManches++;

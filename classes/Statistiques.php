@@ -9,32 +9,91 @@
 class Statistiques extends \BaseObject {
 
     /**
+     * @Id
+     */
+    private $idDomaine;
+    /**
+     * @Id
+     */
+    private $idJoueur;
+    /**
      * @ManyToOne
      * @JoinColumn(name="idDomaine",className="Domaine")
      */
-    private $idDomaine;
+    private $domaine;
     /**
      * @ManyToOne
      * @JoinColumn(name="idJoueur",className="Joueur")
      */
-    private $idJoueur;
+    private $joueur;
     private $nbBonnesReponses;
     private $nbReponses;
 
-    public function getIdDomaine() {
-        return $this->idDomaine;
+    /**
+     * @return mixed
+     */
+    public function getJoueur()
+    {
+        return $this->joueur;
     }
-    public function setIdDomaine($idDomaine) {
-        $this->idDomaine = $idDomaine;
-        return $this;
+
+    /**
+     * @param mixed $joueur
+     */
+    public function setJoueur($joueur)
+    {
+        $this->joueur = $joueur;
     }
-    public function getIdJoueur() {
+
+    /**
+     * @return mixed
+     */
+    public function getIdJoueur()
+    {
         return $this->idJoueur;
     }
-    public function setIdJoueur($idJoueur) {
+
+    /**
+     * @param mixed $idJoueur
+     */
+    public function setIdJoueur($idJoueur)
+    {
         $this->idJoueur = $idJoueur;
-        return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdDomaine()
+    {
+        return $this->idDomaine;
+    }
+
+    /**
+     * @param mixed $idDomaine
+     */
+    public function setIdDomaine($idDomaine)
+    {
+        $this->idDomaine = $idDomaine;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDomaine()
+    {
+        return $this->domaine;
+    }
+
+    /**
+     * @param mixed $domaine
+     */
+    public function setDomaine($domaine)
+    {
+        $this->domaine = $domaine;
+    }
+
+
     public function getNbBonnesReponses() {
         return $this->nbBonnesReponses;
     }
