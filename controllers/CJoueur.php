@@ -134,7 +134,7 @@ class CJoueur extends \BaseController{
             //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
 
             $this->loadView("vPartie", array("pEnCours" => $partiesEnCours, "pJoignables" => $partiesJoignables));
-            echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CQuestion/randomQuestion", "{}","#divMessage");
+            echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CPartie/Jouer", "{}","#divMessage");
         }
 
 
