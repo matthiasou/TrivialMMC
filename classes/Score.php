@@ -10,6 +10,8 @@ class Score extends \BaseObject{
 
     private $nbBonnesReponses;
     private $nbManches;
+    private $repSuccessives;
+
     /**
      * @Id
      */
@@ -134,6 +136,26 @@ class Score extends \BaseObject{
     public function incNbBonnesReponses() {
         $this->nbBonnesReponses++;
     }
+
+    public function incRepSuccessives() {
+        $this->repSuccessives++;
+    }
+    /**
+     * @return mixed
+     */
+    public function getRepSuccessives()
+    {
+        return $this->repSuccessives;
+    }
+
+    /**
+     * @param mixed $repSuccessives
+     */
+    public function setRepSuccessives($repSuccessives)
+    {
+        $this->repSuccessives = $repSuccessives;
+    }
+
 
 
 

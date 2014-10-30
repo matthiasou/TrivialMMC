@@ -39,23 +39,23 @@ class CQuestion extends \BaseController {
         if($estBonne == 1){
             $score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
            // var_dump($score);
-            $score->incNbBonnesReponses();
+            $score->incRepSuccessives();
+            DAO::update($score);
+
             echo JsUtils::execute('alert("Bonne réponse")');
             // nouvelle question
-            $question = new CQuestion();
+
+            $question = new  CQuestion();
             $question->randomQuestion($p);
 
 
-            DAO::update($score);
+
 
             }
         else {
-            // Mauvaise reponse -> retour au menu, changement JoueurEnCours
-            echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
-            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
-            //->changementJoueurEnCours();
+
             $partie = DAO::getOne("Partie", "id ='" . $p[0] . "'");
-            var_dump($partie);
+            //var_dump($partie);
             if ($partie->getJoueur1()->getId() == $idJoueur) {
                 $partie->setJoueurEnCours($partie->getJoueur2());
 
@@ -64,8 +64,18 @@ class CQuestion extends \BaseController {
 
             }
             DAO::update($partie);
-        }
+            $score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
 
+            var_dump($score);
+            $score->setRepSuccessives(0);
+            DAO::update($score);
+            var_dump($score);
+
+            // Mauvaise reponse -> retour au menu, changement JoueurEnCours
+            echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
+            //echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+            //->changementJoueurEnCours();
+        }
 
 
 

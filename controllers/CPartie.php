@@ -21,7 +21,7 @@ class CPartie extends \BaseController {
         $idPartie = str_replace($aChanger, "", $idPartie[0]); // récupere l'id de la partie
         echo'id de la partie :';
        var_dump($idPartie);
-        $partie = DAO::getOne("Partie", "id ='" . $idPartie[0] . "'"); // recupere la partie grâce à l'id
+        $partie = DAO::getOne("Partie", "id ='" . $idPartie[0] . "'"); // recupére la partie grâce à l'id
         echo'Joueur2:';
         var_dump($partie->getJoueur2());
         if ($partie->getJoueur2() == NULL){
@@ -44,8 +44,14 @@ class CPartie extends \BaseController {
        $partie = DAO::getOne("Partie","idPartie = '" . $p[0]);
         var_dump($partie);
 
+    }
 
+    public function creerPartie(){
+        $joueurId = $_SESSION['joueur1']->getId();
 
+        $partie=new Partie("","",$joueurId,"",NULL);
+        RequestUtils::setValuesToObject($partie);
+        DAO::insert($partie);
 
     }
 

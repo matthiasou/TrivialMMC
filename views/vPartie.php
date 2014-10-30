@@ -1,5 +1,7 @@
 <div id="divListe">
     <?php
+    echo " <a class='creerPartie' href='#'>Créer Partie</a><br/><br/>";
+    echo JsUtils::getAndBindTo(".creerPartie", "click", "/trivia/CPartie/creerPartie", "{}","#divMessage");
     echo"Parties joignables :</br></br>";
     foreach ($data["pJoignables"] as $partiesJoignables){
         echo $partiesJoignables." <a class='rejoindre' href='#' id='rejoindre".$partiesJoignables->getId()."'>Rejoindre</a><br/>";
