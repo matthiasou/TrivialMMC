@@ -45,8 +45,16 @@ class CQuestion extends \BaseController {
             echo JsUtils::execute('alert("Bonne réponse")');
             // nouvelle question
 
-            $question = new  CQuestion();
-            $question->randomQuestion($p);
+
+            if ($score->getRepSuccessives()==3){
+                echo JsUtils::execute('alert("Tu vas pouvoir jouer une couronne GG ! ")');
+                echo JsUtils::execute('window.location = " /trivia/CCouronne/couronne/'.$p[0].'"');
+
+            }
+            else {
+                $question = new  CQuestion();
+                $question->randomQuestion($p);
+            }
 
 
 
@@ -63,21 +71,21 @@ class CQuestion extends \BaseController {
                 $partie->setJoueurEnCours($partie->getJoueur1());
 
             }
+            $partie->setDernierCoup(date("Y-m-d H:i:s"));
             DAO::update($partie);
             $score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
 
-            var_dump($score);
-            $score->setRepSuccessives(0);
+
+            $score->setRepSuccessives("0");
             DAO::update($score);
-            var_dump($score);
+
 
             // Mauvaise reponse -> retour au menu, changement JoueurEnCours
             echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
-            //echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
             //->changementJoueurEnCours();
         }
 
-
-
     }
+
 } 

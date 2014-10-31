@@ -47,11 +47,13 @@ class CPartie extends \BaseController {
     }
 
     public function creerPartie(){
-        $joueurId = $_SESSION['joueur1']->getId();
-
-        $partie=new Partie("","",$joueurId,"",NULL);
-        RequestUtils::setValuesToObject($partie);
+        $joueur = $_SESSION['joueur1'];
+        $partie = new partie();
+        $partie ->setJoueur1($joueur);
+        $partie ->setJoueurEnCours($joueur);
+        $partie->setDernierCoup(date("Y-m-d H:i:s"));
         DAO::insert($partie);
+        echo JsUtils::execute('alert("Partie crée, en attente d un joueur")');
 
     }
 
