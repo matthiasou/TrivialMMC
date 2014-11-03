@@ -29,7 +29,7 @@ class CQuestion extends \BaseController {
         DAO::getOneToMany($question, "reponses");
         //echo $reponses;
         $this->loadView("vQuestion", $question);
-        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#messageReponse");
+        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
     }
 
     public function checkAnswer($p){
@@ -41,7 +41,6 @@ class CQuestion extends \BaseController {
            // var_dump($score);
             $score->incRepSuccessives();
             DAO::update($score);
-
             echo JsUtils::execute('alert("Bonne réponse")');
             // nouvelle question
 
@@ -54,8 +53,11 @@ class CQuestion extends \BaseController {
 
             }
             else {
+                //echo JsUtils::doSomethingOn("#divListe","hide");
                 $question = new  CQuestion();
                 $question->randomQuestion($p);
+                //JsUtils::get("/CQuestion/randomQuestion", $question);
+
             }
 
 
