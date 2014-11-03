@@ -17,33 +17,43 @@ class CCouronne extends \BaseController {
     }
 
     public function couronne($p){
+        $this->loadView("vHeader");
 
-        $joueur = $_SESSION['joueur1'];
-        $idJoueur= $_SESSION['joueur1']->getId();
-        echo'monde du joueur';
-        var_dump($joueur->getMonde());
+        $joueur = $_SESSION['joueur1']; // recupere le joueur
+        $idJoueur= $_SESSION['joueur1']->getId(); // son id
+
         // Recupere les domaines du monde du joueur
-        $domaine = DAO::getAll("Domaine", "idMonde ='" . $joueur->getMonde()->getId() . "'");
+        $domaine = DAO::getAll("Domaine", "idMonde ='" . $joueur->getMonde()->getId()."'");
+        //echo 'Tous les domaines que le joueur peut avoir : ';
+        //var_dump($domaine);
 
-        echo'domaine du joueur';
-        var_dump($domaine);
-        // recuperer toutes les couronnes du joueur
+        // recupere toutes les couronnes du joueur
         $couronne = DAO::getAll("Couronne","idPartie='".$p[0]."' AND idJoueur= '".$idJoueur."'");
-        echo 'couronne du joueur';
-        var_dump($couronne);
+        //echo 'couronne que le joueur a : ';
+        //var_dump($couronne);
 
-       //$test = DAO::getAll("Couronne","idDomaine !='". $couronne."'");
-        //echo'couronne qu il n a pas';
-      //  var_dump($test);
+        $toutesLesCouronnes =array();
+        foreach ($couronne as $couronne){
+            $toutesLesCouronnes[]=$couronne->getIdDomaine();
+        }
+        // Domaine que le joueur n'a pas
+        $couronnesManq = array();
+        foreach($domaine as $domaine){
+            if (!in_array($domaine->getId(),$toutesLesCouronnes)){
+                $couronnesManq[]=$domaine;
+            }
+        }
+        //echo'domaine que le joueur na pas';
+       // var_dump($couronnesManq);
 
+         $this->loadView("vCouronne",$couronnesManq);
+         echo JsUtils::postFormAndBindTo("#btChoixCouronne","click","/trivia/CCouronne/questionCouronne/","frmChoixCouronne","#divQstCouronne");
 
+    }
 
+    public function questionCouronne(){
 
-
-
-
-
-       // $this->loadView("vCouronne");
+        echo'salut';
 
     }
 

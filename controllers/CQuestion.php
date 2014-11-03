@@ -47,6 +47,8 @@ class CQuestion extends \BaseController {
 
 
             if ($score->getRepSuccessives()==3){
+                $score->setRepSuccessives("0");
+                DAO::update($score);
                 echo JsUtils::execute('alert("Tu vas pouvoir jouer une couronne GG ! ")');
                 echo JsUtils::execute('window.location = " /trivia/CCouronne/couronne/'.$p[0].'"');
 

@@ -87,5 +87,9 @@ class Domaine extends \BaseObject{
         $this->libelle = $libelle;
     }
 
+    public function toString(){
+        return $this->libelle;
+    }
+
 
 } 

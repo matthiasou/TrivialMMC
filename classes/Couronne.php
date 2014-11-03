@@ -131,6 +131,10 @@ class Couronne extends \BaseObject {
         $this->idPartie = $idPartie;
     }
 
+    public function toString(){
+        return $this->libelle;
+    }
+
 
 
 

@@ -1,19 +1,22 @@
-<<div id="divListe">
-    <?php
-    echo $data;
-    echo "</br></br>";
+<div id="divQstCouronne">
+<form id="frmChoixCouronne" name="frmChoixCouronne">
+    <fieldset>
+        <legend>Choisir une couronne :</legend>
+        <label for="idDomaine">Quelle couronne souhaitez-vous ? </label>
+        <select id="idDomaine" name="idDomaine">
+            <?php
 
-    foreach ($data as $reponse){
-        echo "<input type='button' name='reponse' id='".$reponse->getId()."' class='reponse' value='".$reponse."'/></br>";
-    }
-    ?>
-    <br/>
-
-    <div id="messageReponse">
-
-    </div>
-    <?php
+            foreach ($data as $couronne){
+                echo Gui::select($couronne);
+           }
 
 
-    ?>
+            ?>
+        </select><br>
+
+        <input type="button" value="Valider" id="btChoixCouronne">
+
+
+    </fieldset>
+</form>
 </div>
