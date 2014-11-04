@@ -20,10 +20,10 @@ class CQuestion extends \BaseController {
     }
 
     public function randomQuestion($params){
-        var_dump($params[0]);
+       // var_dump($params[0]);
         $aChanger = array("jouer", "rejoindre");
         $idPartie = str_replace($aChanger, "", $params[0]); // récupere l'id de la partie
-        var_dump($idPartie);
+      //  var_dump($idPartie);
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
         DAO::getOneToMany($question, "reponses");
