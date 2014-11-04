@@ -7,11 +7,13 @@ body{
 }
 
 .head{
-    text-align: right;
+    text-align: center;
     background-color: aqua;
-    position:fixed;
     top:0px;
-    right:0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+
 }
 .headName{
     font-weight: bold;

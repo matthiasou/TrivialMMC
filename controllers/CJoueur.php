@@ -105,7 +105,7 @@ class CJoueur extends \BaseController{
     public function affichHead(){
         if(isset($_SESSION['joueur1']))
         {
-            $result= "Connecté en tant que <span class='headName'>".$_SESSION["joueur1"]->getPrenom()."</span><a id='deconnexion' href='#'> Deconnexion</a>";
+            $result= "<a href='#' id='lienParties'>Parties</a> Connecté en tant que <span class='headName'><a href='#' class='lienJoueur' id='lienJoueur'>".$_SESSION["joueur1"]->getPrenom()."</a></span><a id='deconnexion' href='#'> Deconnexion</a>";
 
         }
         else
@@ -113,6 +113,9 @@ class CJoueur extends \BaseController{
             $result= "<a href='CJoueur'>Connectez-vous</a>";
         }
         $this->loadView("vHeader", $result);
+        echo JsUtils::getAndBindTo("#lienJoueur", "click", "/trivia/CJoueur/pageJoueur/", "{}", "#divListe");
+        echo JsUtils::getAndBindTo("#lienParties", "click", "/trivia/CJoueur/listerParties/", "{}", "#divListe");
+
     }
 
 
@@ -142,6 +145,20 @@ class CJoueur extends \BaseController{
 
     public function statPartie(){
         echo "test Mathias";
+    }
+
+    // affichage des informations relatives au Joueur dans une page
+    public function pageJoueur(){
+
+        $data["prenom"]=$_SESSION["joueur1"]->getPrenom();
+        $data["nom"]=$_SESSION["joueur1"]->getNom();
+        $data["id"]=$_SESSION["joueur1"]->getId();
+        //$data["idMonde"]=$_SESSION["joueur1"]->getIdMonde();
+        $data["mail"]=$_SESSION["joueur1"]->getMail();
+        $data["login"]=$_SESSION["joueur1"]->getLogin();
+        $data["password"]=$_SESSION["joueur1"]->getPassword();
+        $data["niveau"]=$_SESSION["joueur1"]->getNiveau();
+        $this->loadView("vJoueur", $data);
     }
 
 

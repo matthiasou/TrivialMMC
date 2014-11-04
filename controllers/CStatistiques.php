@@ -15,4 +15,7 @@ class CStatistiques extends \BaseController {
         var_dump(DAO::getAll("Statistiques"));
     }
 
+    public function affichCouronne(){
+
+    }
 } 
