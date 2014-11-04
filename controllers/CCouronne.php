@@ -47,14 +47,83 @@ class CCouronne extends \BaseController {
        // var_dump($couronnesManq);
 
          $this->loadView("vCouronne",$couronnesManq);
-         echo JsUtils::postFormAndBindTo("#btChoixCouronne","click","/trivia/CCouronne/questionCouronne/","frmChoixCouronne","#divQstCouronne");
+         echo JsUtils::postFormAndBindTo("#btChoixCouronne","click","/trivia/CCouronne/questionCouronne/". $p[0],"frmChoixCouronne","#divQstCouronne");
 
     }
 
-    public function questionCouronne(){
+    public function questionCouronne($p){
 
-        echo'salut';
+        $idDomaine = $_POST["idDomaine"];
+        $question=DAO::getOne("Question", "idDomaine= ".$idDomaine." AND 1=1 ORDER BY RAND() LIMIT 1 ");
+        //var_dump($question);
+        DAO::getOneToMany($question, "reponses");
+        $this->loadView("vQuestion", $question);
+
+
+        //$p[2]=$idDomaine;
+        $_SESSION['idDomaine'] = $idDomaine;
+        //var_dump($p);
+
+
+        
+
+
+        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CCouronne/checkCouronneAnswer/". $p[0], "{}", "#divQuestion");
+
 
     }
+
+    public function checkCouronneAnswer($p){
+        $idDomaine=$_SESSION['idDomaine'];
+        $joueur = $_SESSION['joueur1'];
+        $idJoueur = $_SESSION['joueur1']->getId();
+        $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
+
+        if($estBonne == 1){
+            echo JsUtils::execute('alert("Nouvelle couronne débloquée:")');
+           // $couronne = DAO::getOne("Couronne","idJoueur='".$idJoueur."' AND idPartie= '".$p[0]."' AND idDomaine='".$idDomaine."'");
+            //var_dump($couronne);
+            $couronne=new Couronne();
+            $couronne->setidPartie($p[0]);
+            $couronne->setidJoueur($idJoueur);
+            $couronne->setidDomaine($idDomaine);
+            DAO::insert($couronne);
+            //$sql="SELECT COUNT(idDomaine) FROM couronne WHERE idJoueur='".$idJoueur."'";
+
+            $couronne2 = DAO::getAll("Couronne","idJoueur='".$idJoueur."' AND idPartie= '".$p[0]."'");
+            echo sizeof($couronne2);
+            $domaine = DAO::getAll("Domaine", "idMonde ='" . $joueur->getMonde()->getId()."'");
+            echo sizeof($domaine);
+            if (sizeof($couronne2)==sizeof($domaine)) {
+                echo "TROP SE SWAG";
+                echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+            }
+            else {
+                $question = new  CQuestion();
+                $question->randomQuestion($p);
+
+            }
+
+        }
+        else {
+            $partie = DAO::getOne("Partie", "id ='" . $p[0] . "'");
+            //var_dump($partie);
+            if ($partie->getJoueur1()->getId() == $idJoueur) {
+                $partie->setJoueurEnCours($partie->getJoueur2());
+
+            } else {
+                $partie->setJoueurEnCours($partie->getJoueur1());
+
+            }
+            $partie->setDernierCoup(date("Y-m-d H:i:s"));
+            DAO::update($partie);
+            echo JsUtils::execute('alert("Mauvaise réponse !")');
+            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+
+        }
+
+    }
+
+
 
 } 
