@@ -20,12 +20,7 @@ class CPartie extends \BaseController {
         $idJoueur = $_SESSION['joueur1']->getId();
         $aChanger = array("jouer", "rejoindre");
         $idPartie = str_replace($aChanger, "", $idPartie[0]); // récupere l'id de la partie
-        echo'id de la partie :';
-       var_dump($idPartie);
-        $partie = DAO::getOne("Partie", "id ='" . $idPartie); // recupére la partie grâce à l'id
-        echo'Joueur2:';
-        var_dump($partie->getJoueur2());
-        var_dump($partie->getJoueurEnCours());
+        $partie = DAO::getOne("Partie", "id ='" . $idPartie . "'"); // recupére la partie grâce à l'id
         if ($partie->getJoueur2() == NULL){
             $partie->setJoueur2($joueur);
             $partie->setJoueurEnCours($joueur);
@@ -40,12 +35,17 @@ class CPartie extends \BaseController {
             $score->setRepSuccessives("0");
             DAO::insert($score);
         }
-        echo'joueurEnCours';
-        var_dump($partie->getJoueurEnCours());
-        echo'Nouvelle question:';
 
-        $question = new CQuestion();
-        $question->randomQuestion($idPartie);
+        echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
+        $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
+        DAO::getOneToMany($question, "reponses");
+        $this->loadView("vQuestion", $question);
+        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
+
+
+
+
+
 
 
 
