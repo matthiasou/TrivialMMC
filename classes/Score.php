@@ -11,6 +11,8 @@ class Score extends \BaseObject{
     private $nbBonnesReponses;
     private $nbManches;
     private $repSuccessives;
+    private $gagne;
+    private $egalite;
 
     /**
      * @Id
@@ -155,6 +157,44 @@ class Score extends \BaseObject{
     {
         $this->repSuccessives = $repSuccessives;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getGagne()
+    {
+        return $this->gagne;
+    }
+
+    /**
+     * @param mixed $gagne
+     */
+    public function setGagne($gagne)
+    {
+        $this->gagne = $gagne;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEgalite()
+    {
+        return $this->egalite;
+    }
+
+    /**
+     * @param mixed $egalite
+     */
+    public function setEgalite($egalite)
+    {
+        $this->egalite = $egalite;
+    }
+
+
+
+
+
+
 
 
 

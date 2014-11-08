@@ -106,6 +106,52 @@ class CQuestion extends \BaseController {
             DAO::update($score);
 
             if($score->getNbManches() ==25){
+                $partie->setPartieFini("1");
+                DAO::update($partie);
+                $couronneJ1 = DAO::getAll("Couronne","idJoueur='".$idJoueur."' AND idPartie= '".$p[0]."'");
+                $couronneJ2 = DAO::getAll("Couronne","idJoueur='".$idJoueur1."' AND idPartie= '".$p[0]."'");
+                $scoreJ1 = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
+                $scoreJ2= DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur1 . "'");
+
+
+
+                if (sizeof($couronneJ1)>sizeof($couronneJ2)) {
+                    $scoreJ1->setGagne("1");
+                    echo JsUtils::execute('alert("Vous avez gagné, vous avez plus de couronne !")');
+
+                }
+                elseif(sizeof($couronneJ1)<sizeof($couronneJ2)){
+                    $scoreJ2->setGagne("1");
+                    echo JsUtils::execute('alert("Vous avez perdu votre adversaire à plus de couronne !")');
+                }
+                elseif(sizeof($couronneJ1)==sizeof($couronneJ2)){
+                    if($scoreJ1->getNbBonnesReponses()>$scoreJ2->getNbBonnesReponses()){
+                        echo JsUtils::execute('alert("Vous avez gagné car vous avez le meilleur nombre de bonnes réponses !")');
+                        $scoreJ1->setGagne("1");
+
+                    }
+                    elseif ($scoreJ1->getNbBonnesReponses()==$scoreJ2->getNbBonnesReponses()){
+                        $scoreJ2->setEgalite("1");
+                        $scoreJ1->setEgalite("1");
+                        echo JsUtils::execute('alert("Egalité !")');
+                    }
+                    else{
+                        $scoreJ2->setGagne("1");
+                        echo JsUtils::execute('alert("Vous avez perdu!")');
+                    }
+
+                }
+                DAO::update($scoreJ1);
+                DAO::update($scoreJ2);
+
+                echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+
+            }
+            else{
+                // Mauvaise reponse -> retour au menu, changement JoueurEnCours
+                echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
+                echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+                //->changementJoueurEnCours();
 
             }
 
@@ -113,10 +159,7 @@ class CQuestion extends \BaseController {
 
 
 
-                // Mauvaise reponse -> retour au menu, changement JoueurEnCours
-            echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
-            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
-            //->changementJoueurEnCours();
+
         }}
 
         //        $idJoueur = $_SESSION['joueur1']->getId();
