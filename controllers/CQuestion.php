@@ -10,6 +10,8 @@ class CQuestion extends \BaseController {
     
     public function index(){
         $this->loadView("vHeader");
+        $this->loadView("VAddQuestion");
+        echo JsUtils::postFormAndBindTo("#btAjQu", "click", "/trivia/CQuestion/ajoutQuestion/", "frmAddQuestion","#divMessage");
 
     }
 
@@ -108,8 +110,26 @@ class CQuestion extends \BaseController {
             echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
             echo JsUtils::execute('window.location = " /trivia/CJoueur"');
             //->changementJoueurEnCours();
+        }}
+
+        //        $idJoueur = $_SESSION['joueur1']->getId();
+
+        public function ajoutQuestion() {
+            $idJoueur = $_SESSION["joueur1"]->getId();
+            var_dump($idJoueur);
+            $question=new Question();
+            RequestUtils::setValuesToObject($question);
+            $domaine=DAO::getOne("Domaine", $_POST["idQuestion"]);
+            var_dump($domaine);
+            $question->setDomaine($domaine->getId());
+            $question->setJoueur($idJoueur);
+            DAO::insert($question);
+            if(DAO::insert($question)==1)
+                echo "Nouvelle question " . $question->getLibelle() . " ajoutée avec succès";
+            else
+                echo "Erreur. Impossible d'ajouter cette nouvelle question.";
         }
 
-    }
+    //}
 
 } 
