@@ -91,12 +91,17 @@ class CCouronne extends \BaseController {
             //$sql="SELECT COUNT(idDomaine) FROM couronne WHERE idJoueur='".$idJoueur."'";
 
             $couronne2 = DAO::getAll("Couronne","idJoueur='".$idJoueur."' AND idPartie= '".$p[0]."'");
-            echo sizeof($couronne2);
+           // echo sizeof($couronne2);
             $domaine = DAO::getAll("Domaine", "idMonde ='" . $joueur->getMonde()->getId()."'");
-            echo sizeof($domaine);
+           // echo sizeof($domaine);
             if (sizeof($couronne2)==sizeof($domaine)) {
-                echo "TROP SE SWAG";
+                $partie =  DAO::getOne("Partie","id= ".$p[0]);
+                $partie->setPartieFini("1");
+                DAO::update($partie);
+                echo JsUtils::execute('alert("Vous avez gagné !")');
                 echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+
+
             }
             else {
                 $question = new  CQuestion();
