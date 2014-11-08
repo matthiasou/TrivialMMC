@@ -22,10 +22,10 @@ class CPartie extends \BaseController {
         $idPartie = str_replace($aChanger, "", $idPartie[0]); // récupere l'id de la partie
         echo'id de la partie :';
        var_dump($idPartie);
-        $partie = DAO::getOne("Partie", "id ='" . $idPartie[0] . "'"); // recupére la partie grâce à l'id
+        $partie = DAO::getOne("Partie", "id ='" . $idPartie); // recupére la partie grâce à l'id
         echo'Joueur2:';
         var_dump($partie->getJoueur2());
-
+        var_dump($partie->getJoueurEnCours());
         if ($partie->getJoueur2() == NULL){
             $partie->setJoueur2($joueur);
             $partie->setJoueurEnCours($joueur);
