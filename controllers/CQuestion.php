@@ -31,8 +31,21 @@ class CQuestion extends \BaseController {
 
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
+        $idDomaine =$question->getDomaine()->getId();
+        $_SESSION['idDomaine']=$idDomaine;
         DAO::getOneToMany($question, "reponses");
-        //echo $reponses;
+
+        $stat=DAO::getOne("Statistiques", "idDomaine = '" . $idDomaine . "' AND idJoueur = '" . $idJoueur . "'");
+        if ($stat == NULL){
+            $statistiques= new  Statistiques();
+            $statistiques->setIdDomaine($idDomaine);
+            $statistiques->setIdJoueur($idJoueur);
+            $statistiques->setNbBonnesReponses("0");
+            $statistiques->setNbReponses("0");
+            DAO::insert($statistiques);
+
+        }
+
         $this->loadView("vQuestion", $question);
         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
 
@@ -43,7 +56,7 @@ class CQuestion extends \BaseController {
     }
 
     public function checkAnswer($p){
-        //var_dump($p);// id de la partie
+        var_dump($_SESSION['idDomaine']);// id de la partie
         $idJoueur = $_SESSION['joueur1']->getId();
         $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
         if($estBonne == 1){
@@ -52,6 +65,10 @@ class CQuestion extends \BaseController {
             $score->incRepSuccessives();
             $score->incNbBonnesReponses();
             DAO::update($score);
+            $stat=DAO::getOne("Statistiques", "idDomaine = '" .  $_SESSION['idDomaine'] . "' AND idJoueur = '" . $idJoueur . "'");
+            $stat->incBonnesReponses();
+            DAO::update($stat);
+
             echo JsUtils::execute('alert("Bonne réponse")');
             // nouvelle question
 
@@ -92,6 +109,7 @@ class CQuestion extends \BaseController {
 
 
             $score->setRepSuccessives("0");
+
             if ($partie->getJoueurEnCours() == $partie->getJoueur1()) {
                 $score->incNbManches();
                 $idJoueur1 = $partie->getJoueur1()->getId();
@@ -103,6 +121,9 @@ class CQuestion extends \BaseController {
 
             }
             DAO::update($score);
+            $stat=DAO::getOne("Statistiques", "idDomaine = '" .  $_SESSION['idDomaine'] . "' AND idJoueur = '" . $idJoueur . "'");
+            $stat->incReponses();
+            DAO::update($stat);
             echo JsUtils::execute('window.location = " /trivia/CQuestion/gagner/'.$p[0].'"');
 
 
