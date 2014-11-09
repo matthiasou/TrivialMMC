@@ -50,7 +50,7 @@ class CJoueur extends \BaseController{
 		$this->loadView("vAddJoueur");
 		echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/addNew/", "frmAdd","#divMessage");
 	}
-	
+
 	public function addNew(){
 		$nouveau=new Joueur();
 		RequestUtils::setValuesToObject($nouveau);
@@ -143,12 +143,9 @@ class CJoueur extends \BaseController{
 
     }
 
-    public function statPartie(){
-        echo "test Mathias";
-    }
-
     // affichage des informations relatives au Joueur dans une page
     public function pageJoueur(){
+        $idJoueur = $_SESSION['joueur1']->getId();
 
         $data["prenom"]=$_SESSION["joueur1"]->getPrenom();
         $data["nom"]=$_SESSION["joueur1"]->getNom();
@@ -158,7 +155,9 @@ class CJoueur extends \BaseController{
         $data["login"]=$_SESSION["joueur1"]->getLogin();
         $data["password"]=$_SESSION["joueur1"]->getPassword();
         $data["niveau"]=$_SESSION["joueur1"]->getNiveau();
-        $this->loadView("vJoueur", $data);
+
+        $stat = DAO::getAll("Statistiques", "idJoueur ='" . $idJoueur."'");
+        $this->loadView("vJoueur",array("profil" => $data, "stat" => $stat));
     }
 
 

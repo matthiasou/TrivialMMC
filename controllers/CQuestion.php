@@ -26,11 +26,13 @@ class CQuestion extends \BaseController {
         $aChanger = array("jouer", "rejoindre");
         $idPartie = str_replace($aChanger, "", $params[0]); // récupere l'id de la partie
         $idJoueur = $_SESSION['joueur1']->getId();
+        $joueur = $_SESSION['joueur1']; // recupere le joueur
       //  var_dump($idPartie);
 
 
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
-        $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
+        $domaine = DAO::getOne("Domaine", "idMonde =" . $joueur->getMonde()->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
+        $question=DAO::getOne("Question", "idDomaine=".$domaine->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
         $idDomaine =$question->getDomaine()->getId();
         $_SESSION['idDomaine']=$idDomaine;
         DAO::getOneToMany($question, "reponses");
