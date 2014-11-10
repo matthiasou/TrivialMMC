@@ -14,11 +14,12 @@ class CJoueur extends \BaseController{
 		//$this->loadView("vJoueurs",$joueurs);
 		//echo JsUtils::getAndBindTo("#addNew", "click", "/trivia/CJoueur/viewAddNew/","{}","#divFrm");
 		//echo JsUtils::getAndBindTo(".delete", "click", "/trivia/CJoueur/delete","{}","#divMessage");
+        $this->affichHead();
         if (!isset($_SESSION['joueur1']))
         {
             $this->loadView("VConnexion");
         }
-        $this->affichHead();
+
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion","#divMessage");
         echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}","#divMessage");
         echo JsUtils::getAndBindTo("#deconnexion", "click", "/trivia/CJoueur/deconnexion/", "{}","#divMessage");

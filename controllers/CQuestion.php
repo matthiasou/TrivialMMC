@@ -58,7 +58,6 @@ class CQuestion extends \BaseController {
     }
 
     public function checkAnswer($p){
-        var_dump($_SESSION['idDomaine']);// id de la partie
         $idJoueur = $_SESSION['joueur1']->getId();
         $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
         if($estBonne == 1){
