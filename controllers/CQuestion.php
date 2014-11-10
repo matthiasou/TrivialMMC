@@ -119,10 +119,10 @@ class CQuestion extends \BaseController {
 
             $score->setRepSuccessives("0");
 
-            if ($partie->getJoueurEnCours() == $partie->getJoueur1()) {
+            if ($partie->getJoueurEnCours() == $partie->getJoueur2()) {
                 $score->incNbManches();
-                $idJoueur1 = $partie->getJoueur1()->getId();
-                $scoreVoulu = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur1 . "'");
+                $idJoueur2 = $partie->getJoueur2()->getId();
+                $scoreVoulu = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur2 . "'");
                 $nbManches = $score->getNbManches();
                 $scoreVoulu->setNbManches($nbManches);
                 DAO::update($scoreVoulu);

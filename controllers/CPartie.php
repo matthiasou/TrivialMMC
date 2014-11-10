@@ -71,7 +71,7 @@ class CPartie extends \BaseController {
         $score->setIdPartie($idPartie);
         $score->setIdJoueur($idJoueur);
         $score->setNbBonnesReponses("0");
-        $score->setNbManches("0");
+        $score->setNbManches("1");
         $score->setRepSuccessives("0");
         DAO::insert($score);
         echo JsUtils::execute('alert("Partie crée, en attente d un joueur")');
