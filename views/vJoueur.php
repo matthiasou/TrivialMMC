@@ -16,7 +16,7 @@ Niveau : <?php echo $data["profil"]['niveau'];?> </br></br>
 <h1>Statistiques</h1>
 <?php  foreach($data["stat"] as $data){
     echo $data->getDomaine()->getLibelle()." : ";
-    echo $data->getNbBonnesReponses() * 100 / $data->getNbReponses()."%</br>";
+    echo round($data->getNbBonnesReponses() * 100 / $data->getNbReponses())."%</br>";
 } ?>
 
 

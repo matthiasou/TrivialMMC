@@ -1,8 +1,8 @@
 <div id="divQstCouronne">
-<form id="frmChoixCouronne" name="frmChoixCouronne">
+<form id="frmChoixCouronne" name="frmChoixCouronne" class="login">
     <fieldset>
         <legend>Choisir une couronne :</legend>
-        <label for="idDomaine">Quelle couronne souhaitez-vous ? </label>
+        Quelle couronne souhaitez-vous ?
         <select id="idDomaine" name="idDomaine">
             <?php
 
