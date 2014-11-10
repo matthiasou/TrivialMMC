@@ -1,4 +1,4 @@
-<div id="divQuestion" class="divQuestion">
+<div id="divQuestion" class="divQuestion"></br>
 <?php
 echo $data;
 echo "</br></br>";

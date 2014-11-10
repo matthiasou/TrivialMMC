@@ -39,6 +39,16 @@ a:hover {
     color: #a8a7a8;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
 }
+.score {
+
+    width: 400px;
+    padding-right: 0px;
+    font-weight: 300;
+    font-size: 85%;
+    color: #a8a7a8;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+    
+}
 .login p {
     margin: 0 0 10px;
 }

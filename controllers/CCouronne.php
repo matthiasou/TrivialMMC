@@ -8,6 +8,7 @@
 
 class CCouronne extends \BaseController {
     public function index(){
+        $this->loadView("vHeader");
 
 
     }
@@ -52,6 +53,7 @@ class CCouronne extends \BaseController {
     }
 
     public function questionCouronne($p){
+        $this->loadView("vHeader");
 
         $idDomaine = $_POST["idDomaine"];
         $question=DAO::getOne("Question", "idDomaine= ".$idDomaine." AND 1=1 ORDER BY RAND() LIMIT 1 ");
@@ -74,6 +76,7 @@ class CCouronne extends \BaseController {
     }
 
     public function checkCouronneAnswer($p){
+        $this->loadView("vHeader");
         $idDomaine=$_SESSION['idDomaine'];
         $joueur = $_SESSION['joueur1'];
         $idJoueur = $_SESSION['joueur1']->getId();

@@ -47,7 +47,14 @@ class CQuestion extends \BaseController {
             DAO::insert($statistiques);
 
         }
+        $partie = DAO::getOne("Partie","id=".$idPartie);
+        $couronneJ1 = DAO::getAll("Couronne","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+        $couronneJ2 = DAO::getAll("Couronne","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+        $scoreJ1 = DAO::getOne("Score","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+        $scoreJ2 = DAO::getOne("Score","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+        $info =array("partie"=>$partie, "couronneJ1"=>$couronneJ1, "couronneJ2"=>$couronneJ2, "scoreJ1"=>$scoreJ1, "scoreJ2"=>$scoreJ2);
 
+        $this->loadView("vInfoPartie",$info);
         $this->loadView("vQuestion", $question);
         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
 
@@ -58,6 +65,7 @@ class CQuestion extends \BaseController {
     }
 
     public function checkAnswer($p){
+        echo JsUtils::doSomethingOn("#frmScore","hide");
         $idJoueur = $_SESSION['joueur1']->getId();
         $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
         if($estBonne == 1){
@@ -142,16 +150,23 @@ class CQuestion extends \BaseController {
         $this->loadView("vHeader");
         $idJoueur = $_SESSION['joueur1']->getId();
         $partie = DAO::getOne("Partie", "id ='" . $p[0] . "'");
-        $idJoueur1 = $partie->getJoueur1()->getId();
+        if ($partie->getJoueur1()->getId() == $idJoueur) {
+            $idJoueur2 = $partie->getJoueur2()->getId();
+
+        } else {
+            $idJoueur2 = $partie->getJoueur1()->getId();
+
+        }
+
         $score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
 
         if ($score->getNbManches() == 25) {
             $partie->setPartieFini("1");
             DAO::update($partie);
             $couronneJ1 = DAO::getAll("Couronne", "idJoueur='" . $idJoueur . "' AND idPartie= '" . $p[0] . "'");
-            $couronneJ2 = DAO::getAll("Couronne", "idJoueur='" . $idJoueur1 . "' AND idPartie= '" . $p[0] . "'");
+            $couronneJ2 = DAO::getAll("Couronne", "idJoueur='" . $idJoueur2 . "' AND idPartie= '" . $p[0] . "'");
             $scoreJ1 = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
-            $scoreJ2 = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur1 . "'");
+            $scoreJ2 = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur2 . "'");
 
 
             if (sizeof($couronneJ1) > sizeof($couronneJ2)) {
