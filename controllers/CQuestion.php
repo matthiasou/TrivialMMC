@@ -65,6 +65,7 @@ class CQuestion extends \BaseController {
     }
 
     public function checkAnswer($p){
+        $idDomaine = $_SESSION['idDomaine'];
         echo JsUtils::doSomethingOn("#frmScore","hide");
         $idJoueur = $_SESSION['joueur1']->getId();
         $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
@@ -74,7 +75,7 @@ class CQuestion extends \BaseController {
             $score->incRepSuccessives();
             $score->incNbBonnesReponses();
             DAO::update($score);
-            $stat=DAO::getOne("Statistiques", "idDomaine = '" .  $_SESSION['idDomaine'] . "' AND idJoueur = '" . $idJoueur . "'");
+            $stat=DAO::getOne("Statistiques", "idDomaine = '" . $idDomaine. "' AND idJoueur = '" . $idJoueur . "'");
             $stat->incBonnesReponses();
             DAO::update($stat);
 
@@ -130,7 +131,7 @@ class CQuestion extends \BaseController {
 
             }
             DAO::update($score);
-            $stat=DAO::getOne("Statistiques", "idDomaine = '" .  $_SESSION['idDomaine'] . "' AND idJoueur = '" . $idJoueur . "'");
+            $stat=DAO::getOne("Statistiques", "idDomaine = '" . $idDomaine. "' AND idJoueur = '" . $idJoueur . "'");
             $stat->incReponses();
             DAO::update($stat);
             echo JsUtils::execute('window.location = " /trivia/CQuestion/gagner/'.$p[0].'"');
