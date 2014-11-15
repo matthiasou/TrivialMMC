@@ -5,7 +5,7 @@
     echo"<h2>Parties joignables :</h2>";
     foreach ($data["pJoignables"] as $partiesJoignables){
         echo $partiesJoignables." <a class='rejoindre' href='#' id='rejoindre".$partiesJoignables->getId()."'>Rejoindre</a><br/>";
-        echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CQuestion/randomQuestion", "{}","#divMessage");
+        //echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CQuestion/randomQuestion", "{}","#divMessage");
     }
 
     echo "</br><h2>Parties en cours :</h2>";
