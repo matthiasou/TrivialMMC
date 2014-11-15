@@ -75,6 +75,7 @@ class CPartie extends \BaseController {
         $score->setRepSuccessives("0");
         DAO::insert($score);
         echo JsUtils::execute('alert("Partie crée, en attente d un joueur")');
+        echo JsUtils::execute('window.location = " /trivia/CJoueur"');
 
     }
 

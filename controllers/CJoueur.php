@@ -136,8 +136,10 @@ class CJoueur extends \BaseController{
             // Affiche les parties qui sont possible à rejoindre
             $partiesJoignables = DAO::getAll("Partie", "idJoueur2 is NULL AND idJoueur1 != $idJoueur");
             //var_dump( DAO::getAll("Partie","idJoueur2 is NULL AND idJoueur1 != $idJoueur"));
+            $partiesFini = DAO::getAll("Partie","(idJoueur1=" . $idJoueur . " OR idJoueur2=" . $idJoueur . ") AND partieFini='1'");
+            $partiesEnAttentes =DAO::getAll("Partie", "idJoueur2 is NULL AND idJoueur1 = $idJoueur");
 
-            $this->loadView("vPartie", array("pEnCours" => $partiesEnCours, "pJoignables" => $partiesJoignables));
+            $this->loadView("vPartie", array("pEnCours" => $partiesEnCours, "pJoignables" => $partiesJoignables,"pFini" => $partiesFini, "pEnAttentes" => $partiesEnAttentes));
             echo JsUtils::getAndBindTo(".rejoindre", "click", "/trivia/CPartie/Jouer", "{}","#divMessage");
         }
 
