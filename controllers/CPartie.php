@@ -41,7 +41,7 @@ class CPartie extends \BaseController {
         DAO::getOneToMany($question, "reponses");
         $this->loadView("vQuestion", $question);
         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
-        echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#divQuestion");
+        echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#messageSignalement");
 
 
 

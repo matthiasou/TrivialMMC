@@ -17,3 +17,6 @@ foreach ($data->getReponses() as $reponse){
     echo " <a href='#' class='signalerQuestion' id='signalerQuestion'>Signaler cette question</a><br/><br/>";
     ?>
 </div>
+<div id="messageSignalement">
+
+</div>
