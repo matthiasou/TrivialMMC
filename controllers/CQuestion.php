@@ -255,7 +255,6 @@ class CQuestion extends \BaseController {
             $signalement->setDateS(date("Y-m-d H:i:s"));
             DAO::insert($signalement);
             echo JsUtils::execute('alert("Votre probléme à bien été envoyé")');
-            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
 
         }
 
