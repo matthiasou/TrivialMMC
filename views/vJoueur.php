@@ -33,27 +33,17 @@ if($data["profil"]['niveau']==100){
     </form>
 
     <!-- Modifier un monde -->
-    <form id="frmModifMonde" name="frmAddMonde" class="addMonde">
+    <form id="frmUpMonde" name="frmUpMonde" class="upMonde">
         <fieldset>
             <legend>Modifier un monde</legend>
-            <label for="nom">Nom : </label><input type="text" id="nom" name="nom"><br>
-            <label for="idMonde">Monde : </label>
-            <select id="idMonde" name="idMonde">
-                <?php
-                $mondes=DAO::getAll("Monde");
-                foreach ($mondes as $monde){
-                    echo Gui::select($monde);
-                }
-                ?>
-            </select><br>
+            <br>
             <?php
             $mondes=DAO::getAll("Monde");
             foreach ($mondes as $monde){
-                echo Gui::select($monde);
-                echo " "?>$monde <?php " ";
+            echo "<input type='text' id='nom' name='nom' value='" . $monde . "'><input type='button' value='Valider' id='btValiderUpMonde' class='btValiderUpMonde'>";
+
             }
             ?>
-            <hr>
             <input type="button" value="Valider" id="btValiderUpMonde" class="btValiderUpMonde">
         </fieldset>
 
