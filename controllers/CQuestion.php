@@ -57,6 +57,7 @@ class CQuestion extends \BaseController {
         $this->loadView("vInfoPartie",$info);
         $this->loadView("vQuestion", $question);
         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
+        echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#divQuestion");
 
 
 
@@ -230,4 +231,7 @@ class CQuestion extends \BaseController {
 
     //}
 
+    public function signalerQuestion(){
+        $this->loadView("VSignalement");
+    }
 } 

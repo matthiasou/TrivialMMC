@@ -14,6 +14,6 @@ foreach ($data->getReponses() as $reponse){
 </div>
     <?php
     echo "<br/> Question soumise par ".$data->getJoueur()->getPrenom();
-    echo " <a class='signalerQuestion' href='#'>Signaler cette question</a><br/><br/>";
+    echo " <a href='#' class='signalerQuestion' id='signalerQuestion'>Signaler cette question</a><br/><br/>";
     ?>
 </div>
