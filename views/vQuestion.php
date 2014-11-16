@@ -13,7 +13,7 @@ foreach ($data->getReponses() as $reponse){
 
 </div>
     <?php
-echo "<br/> Question soumise par ".$data->getJoueur()->getPrenom();
-
-?>
+    echo "<br/> Question soumise par ".$data->getJoueur()->getPrenom();
+    echo " <a class='signalerQuestion' href='#'>Signaler cette question</a><br/><br/>";
+    ?>
 </div>
