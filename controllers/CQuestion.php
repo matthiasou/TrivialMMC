@@ -235,7 +235,7 @@ class CQuestion extends \BaseController {
     public function signalerQuestion($idQuestion){
 
         $this->loadView("VSignalement");
-        echo JsUtils::postFormAndBindTo("#btSignalement","click","/trivia/CQuestion/ajouterSignalement/" .$idQuestion[0],"frmSignalement","#divMessage");
+        echo JsUtils::postFormAndBindTo("#btSignalement","click","/trivia/CQuestion/ajouterSignalement/" .$idQuestion[0],"frmSignalement","#messageSignalement");
     }
 
     public function    ajouterSignalement($idQuestion){
