@@ -246,7 +246,6 @@ class CQuestion extends \BaseController {
         RequestUtils::setValuesToObject($probleme);
         $probleme->setLibelle($_POST["signalement"]);
         if(DAO::insert($probleme)==1) {
-            echo "Le problème à bien été envoyé :) ";
             $idProbleme = $probleme->getId();
             $idJoueur = $_SESSION["joueur1"]->getId();
             $signalement = new signalement();
@@ -255,6 +254,8 @@ class CQuestion extends \BaseController {
             $signalement->setIdQuestion($idQuestion[0]);
             $signalement->setDateS(date("Y-m-d H:i:s"));
             DAO::insert($signalement);
+            echo JsUtils::execute('alert("Votre probléme à bien été envoyé")');
+            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
 
         }
 
