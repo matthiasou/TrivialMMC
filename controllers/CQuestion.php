@@ -33,6 +33,7 @@ class CQuestion extends \BaseController {
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
         $domaine = DAO::getOne("Domaine", "idMonde =" . $joueur->getMonde()->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
         $question=DAO::getOne("Question", "idDomaine=".$domaine->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
+        $idQuestion = $question->getId();
         $idDomaine =$question->getDomaine()->getId();
         $_SESSION['idDomaine']=$idDomaine;
         DAO::getOneToMany($question, "reponses");
@@ -57,7 +58,7 @@ class CQuestion extends \BaseController {
         $this->loadView("vInfoPartie",$info);
         $this->loadView("vQuestion", $question);
         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
-        echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#messageSignalement");
+        echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/" . $idQuestion, "{}", "#messageSignalement");
 
 
 
@@ -231,7 +232,32 @@ class CQuestion extends \BaseController {
 
     //}
 
-    public function signalerQuestion(){
+    public function signalerQuestion($idQuestion){
+
         $this->loadView("VSignalement");
+        echo JsUtils::postFormAndBindTo("#btSignalement","click","/trivia/CQuestion/ajouterSignalement/" .$idQuestion[0],"frmSignalement","#divMessage");
     }
+
+    public function    ajouterSignalement($idQuestion){
+        // il faut prendre la texte area et mettre dans le champ libelle de la table probleme
+        // Puis mettre dans la table signalement l'id du problème, idJouee-> session, , idQuestion et la date grace à la fonction date
+
+        $probleme=new Probleme();
+        RequestUtils::setValuesToObject($probleme);
+        $probleme->setLibelle($_POST["signalement"]);
+        if(DAO::insert($probleme)==1) {
+            echo "Le problème à bien été envoyé :) ";
+            $idProbleme = $probleme->getId();
+            $idJoueur = $_SESSION["joueur1"]->getId();
+            $signalement = new signalement();
+            $signalement->setIdProbleme($idProbleme);
+            $signalement->setIdJoueur($idJoueur);
+            $signalement->setIdQuestion($idQuestion[0]);
+            $signalement->setDateS(date("Y-m-d H:i:s"));
+            DAO::insert($signalement);
+
+        }
+
+    }
+
 } 
