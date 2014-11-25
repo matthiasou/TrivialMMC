@@ -10,7 +10,11 @@ class CJoueur extends \BaseController
         $this->refresh();
         echo "<div id='divMessage'></div>";
     }
-
+    /**
+     * @param $p(idPartie)
+     * @brief Couronnes Manquantes
+     * @details Renvoi les couronnes manquantes à la vue vCouronne
+     */
     public function refresh()
     {
         //$joueurs=DAO::getAll("Joueur");
