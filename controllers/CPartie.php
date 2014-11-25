@@ -40,6 +40,18 @@ class CPartie extends \BaseController {
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
         $idDomaine =$question->getDomaine()->getId();
         DAO::getOneToMany($question, "reponses");
+
+        // ********** affiche un encadré avec des infos sur la partie
+            $partie = DAO::getOne("Partie","id=".$idPartie);
+            $couronneJ1 = DAO::getAll("Couronne","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+            $couronneJ2 = DAO::getAll("Couronne","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+            $scoreJ1 = DAO::getOne("Score","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+            $scoreJ2 = DAO::getOne("Score","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+            $info =array("partie"=>$partie, "couronneJ1"=>$couronneJ1, "couronneJ2"=>$couronneJ2, "scoreJ1"=>$scoreJ1, "scoreJ2"=>$scoreJ2);
+
+            $this->loadView("vInfoPartie",$info);
+        // ********** FIN
+
         $this->loadView("vQuestion", $question);
         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie ."/". $idDomaine, "{}", "#divQuestion");
         echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#messageSignalement");
