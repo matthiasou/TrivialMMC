@@ -1,10 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: matthiaslecomte
- * Date: 16/10/14
- * Time: 10:05
+ * @author: matthiaslecomte
+ * @date: 16/10/14
+ * @Time: 10:05
  */
+
+
 
 class CCouronne extends \BaseController {
     public function index(){
@@ -17,6 +19,11 @@ class CCouronne extends \BaseController {
         var_dump(DAO::getAll("Couronne"));
     }
 
+    /**
+     * @param $p
+     * @brief Couronnes Manquantes
+     * @details Renvoi les couronnes manquantes à la vue vCouronne
+     */
     public function couronne($p){
         $this->loadView("vHeader");
 
