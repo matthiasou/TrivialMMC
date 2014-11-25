@@ -14,7 +14,9 @@ class CPartie extends \BaseController {
     public function load(){
         var_dump(DAO::getAll("Partie"));
     }
-
+    /**
+     * @brief si le joueur2 est null alors met le joueur en cours en joueur2, initialise le score
+     */
     public function jouer($params){
         $joueur = $_SESSION['joueur1'];//Recupere joueur en session
         $idJoueur = $_SESSION['joueur1']->getId();
@@ -40,6 +42,18 @@ class CPartie extends \BaseController {
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
         $idDomaine =$question->getDomaine()->getId();
         DAO::getOneToMany($question, "reponses");
+
+        // ********** affiche un encadré avec des infos sur la partie
+            $partie = DAO::getOne("Partie","id=".$idPartie);
+            $couronneJ1 = DAO::getAll("Couronne","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+            $couronneJ2 = DAO::getAll("Couronne","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+            $scoreJ1 = DAO::getOne("Score","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+            $scoreJ2 = DAO::getOne("Score","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+            $info =array("partie"=>$partie, "couronneJ1"=>$couronneJ1, "couronneJ2"=>$couronneJ2, "scoreJ1"=>$scoreJ1, "scoreJ2"=>$scoreJ2);
+
+            $this->loadView("vInfoPartie",$info);
+        // ********** FIN
+
         $this->loadView("vQuestion", $question);
         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie ."/". $idDomaine, "{}", "#divQuestion");
         echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#messageSignalement");
@@ -53,12 +67,9 @@ class CPartie extends \BaseController {
 
     }
 
-    public function changementJoueurEnCours($p){
-       $partie = DAO::getOne("Partie","idPartie = '" . $p[0]);
-        var_dump($partie);
-
-    }
-
+    /**
+     * @brief Creation d'une partie
+     */
     public function creerPartie(){
         $joueur = $_SESSION['joueur1'];
         $idJoueur = $_SESSION['joueur1']->getId();
