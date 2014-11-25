@@ -75,7 +75,7 @@ class CQuestion extends \BaseController {
         $idJoueur = $_SESSION['joueur1']->getId();
         if($estBonne == 1){
             $score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
-           // var_dump($score);
+            // var_dump($score);
             $score->incRepSuccessives();
             $score->incNbBonnesReponses();
             DAO::update($score);
