@@ -1,10 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: matthiaslecomte
- * Date: 16/10/14
- * Time: 10:05
+ * @author: matthiaslecomte
+ * @date: 16/10/14
+ * @Time: 10:05
  */
+
+
 
 class CCouronne extends \BaseController {
     public function index(){
@@ -17,6 +19,11 @@ class CCouronne extends \BaseController {
         var_dump(DAO::getAll("Couronne"));
     }
 
+    /**
+     * @param $p(idPartie)
+     * @brief Couronnes Manquantes
+     * @details Renvoi les couronnes manquantes à la vue vCouronne
+     */
     public function couronne($p){
         $this->loadView("vHeader");
 
@@ -51,7 +58,10 @@ class CCouronne extends \BaseController {
          echo JsUtils::postFormAndBindTo("#btChoixCouronne","click","/trivia/CCouronne/questionCouronne/". $p[0],"frmChoixCouronne","#divQstCouronne");
 
     }
-
+    /**
+     * @param $p(idPartie)
+     * @brief Donne une question pour couronne choisie
+     */
     public function questionCouronne($p){
         $this->loadView("vHeader");
 
@@ -75,6 +85,11 @@ class CCouronne extends \BaseController {
 
     }
 
+    /**
+     * @param $p(idPartie)
+     * @brief Vérifie la reponse de la question
+     * @details Si le joueur repond bien => Vérification  si le joueur à toute les couronnes ( si oui, gagne . si non, questions suivantes) Par contre si la réponse est mauvaise c'est à l'autre joueur de jouer
+     */
     public function checkCouronneAnswer($p){
         $this->loadView("vHeader");
         $idDomaine=$_SESSION['idDomaine'];

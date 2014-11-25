@@ -18,7 +18,9 @@ class CDomaine extends \BaseController {
     public function viewAjoutMonde(){
         echo JsUtils::doSomethingOn("#libelle", "hide");
     }
-
+    /**
+     * @brief Ajouter un domaine
+     */
     public function ajoutDomaine() {
         $domaine=new Domaine();
         RequestUtils::setValuesToObject($domaine);
