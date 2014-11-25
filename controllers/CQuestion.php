@@ -57,7 +57,7 @@ class CQuestion extends \BaseController {
 
         $this->loadView("vInfoPartie",$info);
         $this->loadView("vQuestion", $question);
-        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
+        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" .$idPartie ."/".$idDomaine, "{}", "#divQuestion");
         echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/" . $idQuestion, "{}", "#messageSignalement");
 
 
@@ -67,17 +67,19 @@ class CQuestion extends \BaseController {
     }
 
     public function checkAnswer($p){
-        $idDomaine = $_SESSION['idDomaine'];
+        var_dump($p);
+        //$idDomaine = $_SESSION['idDomaine'];
         echo JsUtils::doSomethingOn("#frmScore","hide");
+
+        $estBonne=DAO::getOne("Reponse",$p[2])->getEstBonne();
         $idJoueur = $_SESSION['joueur1']->getId();
-        $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
         if($estBonne == 1){
             $score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
            // var_dump($score);
             $score->incRepSuccessives();
             $score->incNbBonnesReponses();
             DAO::update($score);
-            $stat=DAO::getOne("Statistiques", "idDomaine = '" . $idDomaine. "' AND idJoueur = '" . $idJoueur . "'");
+            $stat=DAO::getOne("Statistiques", "idDomaine = '". $p[1]. "' AND idJoueur = '" . $idJoueur . "'");
             $stat->incBonnesReponses();
             DAO::update($stat);
 
@@ -133,7 +135,7 @@ class CQuestion extends \BaseController {
 
             }
             DAO::update($score);
-            $stat=DAO::getOne("Statistiques", "idDomaine = '" . $idDomaine. "' AND idJoueur = '" . $idJoueur . "'");
+            $stat=DAO::getOne("Statistiques", "idDomaine = '" . $p[1]. "' AND idJoueur = '" . $idJoueur . "'");
             $stat->incReponses();
             DAO::update($stat);
             echo JsUtils::execute('window.location = " /trivia/CQuestion/gagner/'.$p[0].'"');
