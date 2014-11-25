@@ -15,11 +15,11 @@ class CPartie extends \BaseController {
         var_dump(DAO::getAll("Partie"));
     }
 
-    public function jouer($idPartie){
+    public function jouer($params){
         $joueur = $_SESSION['joueur1'];//Recupere joueur en session
         $idJoueur = $_SESSION['joueur1']->getId();
         $aChanger = array("jouer", "rejoindre");
-        $idPartie = str_replace($aChanger, "", $idPartie[0]); // récupere l'id de la partie
+        $idPartie = str_replace($aChanger, "", $params[0]); // récupere l'id de la partie
         $partie = DAO::getOne("Partie", "id ='" . $idPartie . "'"); // recupére la partie grâce à l'id
         if ($partie->getJoueur2() == NULL){
             $partie->setJoueur2($joueur);
@@ -38,9 +38,10 @@ class CPartie extends \BaseController {
 
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
         $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
+        $idDomaine =$question->getDomaine()->getId();
         DAO::getOneToMany($question, "reponses");
         $this->loadView("vQuestion", $question);
-        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie, "{}", "#divQuestion");
+        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie ."/". $idDomaine, "{}", "#divQuestion");
         echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#messageSignalement");
 
 

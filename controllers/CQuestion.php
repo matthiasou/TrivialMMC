@@ -80,6 +80,7 @@ class CQuestion extends \BaseController {
             $score->incNbBonnesReponses();
             DAO::update($score);
             $stat=DAO::getOne("Statistiques", "idDomaine = '". $p[1]. "' AND idJoueur = '" . $idJoueur . "'");
+            //var_dump($stat);
             $stat->incBonnesReponses();
             DAO::update($stat);
 
