@@ -21,7 +21,9 @@ class CMonde extends \BaseController {
     public function viewAjoutMonde(){
         echo JsUtils::doSomethingOn("#libelle", "hide");
     }
-
+    /**
+     * @brief Ajouter un monde
+     */
     public function ajoutMonde() {
         $monde=new Monde();
         RequestUtils::setValuesToObject($monde);

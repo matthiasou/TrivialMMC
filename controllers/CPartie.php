@@ -14,7 +14,9 @@ class CPartie extends \BaseController {
     public function load(){
         var_dump(DAO::getAll("Partie"));
     }
-
+    /**
+     * @brief si le joueur2 est null alors met le joueur en cours en joueur2, initialise le score
+     */
     public function jouer($params){
         $joueur = $_SESSION['joueur1'];//Recupere joueur en session
         $idJoueur = $_SESSION['joueur1']->getId();
@@ -53,12 +55,9 @@ class CPartie extends \BaseController {
 
     }
 
-    public function changementJoueurEnCours($p){
-       $partie = DAO::getOne("Partie","idPartie = '" . $p[0]);
-        var_dump($partie);
-
-    }
-
+    /**
+     * @brief Creation d'une partie
+     */
     public function creerPartie(){
         $joueur = $_SESSION['joueur1'];
         $idJoueur = $_SESSION['joueur1']->getId();

@@ -11,9 +11,7 @@ class CJoueur extends \BaseController
         echo "<div id='divMessage'></div>";
     }
     /**
-     * @param $p(idPartie)
-     * @brief Couronnes Manquantes
-     * @details Renvoi les couronnes manquantes à la vue vCouronne
+     * @brief Recharge la page
      */
     public function refresh()
     {
@@ -35,7 +33,11 @@ class CJoueur extends \BaseController
 
 
     }
-
+    /**
+     * * @param $params
+     * @brief Supprime un joueur
+     * @details Permet de supprimer un joueur
+     */
     public function delete($params)
     {
         $param = str_replace("delete", "", $params[0]);
@@ -53,13 +55,17 @@ class CJoueur extends \BaseController
         echo "</div>";
     }
 
-
+    /**
+     * @brief Charge la vue pour ajouter un joueur
+     */
     public function viewAddNew()
     {
         $this->loadView("vAddJoueur");
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/addNew/", "frmAdd", "#divMessage");
     }
-
+    /**
+     * @brief ajouter joueur
+     */
     public function addNew()
     {
         $nouveau = new Joueur();
@@ -71,6 +77,9 @@ class CJoueur extends \BaseController
         echo JsUtils::get("/trivia/CJoueur/refresh", "{}", "#divListe");
     }
 
+    /**
+     * @brief Connexion au jeu
+     */
     public function connexion()
     {
         if ($joueur = DAO::getOne("Joueur", "login='" . $_POST["login"] . "' AND password= '" . $_POST["password"] . "'")) {
@@ -84,7 +93,9 @@ class CJoueur extends \BaseController
         //echo JsUtils::doSomethingOn("#inscription","hide");
         echo JsUtils::get("CJoueur/index", "{}", "body");
     }
-
+    /**
+     * @brief Déconnexion, détruit la session
+     */
     public function deconnexion()
     {
         session_destroy();
@@ -92,7 +103,9 @@ class CJoueur extends \BaseController
         echo JsUtils::get("CJoueur/index", "{}", "body");
     }
 
-
+    /**
+     * @brief Cache le formulaire d'inscription et de connexion
+     */
     public function viewInscription()
     {
         echo JsUtils::doSomethingOn("#frmConnexion", "hide");
@@ -102,7 +115,9 @@ class CJoueur extends \BaseController
 
 
     }
-
+    /**
+     * @brief Creer un nouveau joueur
+     */
     public function inscription()
     {
 
@@ -115,7 +130,9 @@ class CJoueur extends \BaseController
         //echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
 
     }
-
+    /**
+     * @brief Affficher le header
+     */
     public function affichHead()
     {
         if (isset($_SESSION['joueur1'])) {
@@ -130,7 +147,9 @@ class CJoueur extends \BaseController
 
     }
 
-
+    /**
+     * @brief Affiche toutes les parties joignables, en cours, fini ou en attentes
+     */
     public function listerParties()
     {
 
@@ -158,7 +177,10 @@ class CJoueur extends \BaseController
 
     }
 
-    // affichage des informations relatives au Joueur dans une page
+
+    /**
+     * @brief Affichage des informations relatives au Joueur dans une page
+     */
     public function pageJoueur()
     {
         $idJoueur = $_SESSION['joueur1']->getId();
@@ -178,6 +200,9 @@ class CJoueur extends \BaseController
         echo JsUtils::postFormAndBindTo("#btValiderUpMonde", "click", "/trivia/CJoueur/updateMonde/", "frmUpMonde", "#divMessage");
     }
 
+    /**
+     * @brief Ajouter un monde
+     */
     public function addMonde()
     {
         $monde = new Monde();
@@ -185,7 +210,9 @@ class CJoueur extends \BaseController
         if (DAO::insert($monde) == 1)
             echo "Insertion de " . $monde . " ok";
     }
-
+    /**
+     * @brief Modifier un monde
+     */
     public function updateMonde()
     {
         $monde = $_POST['nom'];
