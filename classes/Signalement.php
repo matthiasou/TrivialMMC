@@ -7,7 +7,7 @@
  */
 
 
-class Signalement {
+class Signalement extends \BaseObject {
     /**
      * @Id
      */
