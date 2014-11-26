@@ -22,7 +22,7 @@ class CCouronne extends \BaseController {
     /**
      * @param $p(idPartie)
      * @brief Couronnes Manquantes
-     * @details Renvoi les couronnes manquantes à la vue vCouronne
+     * @details Renvoi les couronnes manquantes à la vue vCouronne, Affiche la vue vCouronne
      */
     public function couronne($p){
         $this->loadView("vHeader");

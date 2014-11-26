@@ -15,9 +15,7 @@ class CQuestion extends \BaseController {
 
     }
 
-    /**
-     * @brief C'est du caca, c'est pas utilisé. C'est la faute à Maxime qui est sur Dealabs.
-     */
+
     public function load(){
         $this->loadView("vHeader");
         var_dump(DAO::getAll("Question"));
@@ -25,8 +23,8 @@ class CQuestion extends \BaseController {
 
     /**
      * @param $p(idPartie)
-     * @brief Charge une question aléatoire du domaine en cours.
-     * @details La fonction ...
+     * @brief Charge une question des domaines du joueur
+     * @details Si le joueur n'a pas de statistiques cela les initialises, Affiche les vues vQuestion et vInfoPartie
      */
     public function randomQuestion($params){
 
@@ -210,6 +208,7 @@ class CQuestion extends \BaseController {
 
     /**
      * @brief Permet de signaler une question affichée en cours de partie, avec un message attaché pour l'administrateur. Elle appelle la fonction ajouterSignalement.
+     * @details Affiche la vue vSignalement
      */
     public function signalerQuestion($idQuestion){
 

@@ -16,6 +16,7 @@ class CPartie extends \BaseController {
     }
     /**
      * @brief si le joueur2 est null alors met le joueur en cours en joueur2, initialise le score
+     * @details Affiche la vue vInfoPartie et vQuestion
      */
     public function jouer($params){
         $joueur = $_SESSION['joueur1'];//Recupere joueur en session

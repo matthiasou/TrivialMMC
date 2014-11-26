@@ -105,6 +105,7 @@ class CJoueur extends \BaseController
 
     /**
      * @brief Cache le formulaire d'inscription et de connexion
+     * @details Affiche la vue Affiche la vue vInscription
      */
     public function viewInscription()
     {
@@ -132,6 +133,7 @@ class CJoueur extends \BaseController
     }
     /**
      * @brief Affficher le header
+     * @details Affiche la vue vHeader
      */
     public function affichHead()
     {
@@ -149,6 +151,7 @@ class CJoueur extends \BaseController
 
     /**
      * @brief Affiche toutes les parties joignables, en cours, fini ou en attentes
+     * @details Affiche la vue vPartie
      */
     public function listerParties()
     {
@@ -180,6 +183,7 @@ class CJoueur extends \BaseController
 
     /**
      * @brief Affichage des informations relatives au Joueur dans une page
+     * @details Affiche la vue vJoueur
      */
     public function pageJoueur()
     {
