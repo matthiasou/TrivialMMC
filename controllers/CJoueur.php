@@ -174,24 +174,12 @@ class CJoueur extends \BaseController
 
         $stat = DAO::getAll("Statistiques", "idJoueur ='" . $idJoueur . "'");
         $this->loadView("vJoueur", array("profil" => $data, "stat" => $stat));
-        echo JsUtils::postFormAndBindTo("#btValiderAddMonde", "click", "/trivia/CJoueur/addMonde/", "frmAddMonde", "#divMessage");
-        echo JsUtils::postFormAndBindTo("#btValiderUpMonde", "click", "/trivia/CJoueur/updateMonde/", "frmUpMonde", "#divMessage");
+        echo JsUtils::postFormAndBindTo("#btValiderAddMonde", "click", "/trivia/CMonde/addMonde/", "frmAddMonde", "#divMessage");
+        echo JsUtils::postFormAndBindTo(".btValiderUpMonde", "click", "/trivia/CMonde/updateMonde/", "frmUpMonde", "#divMessage");
+        //echo JsUtils::getAndBindTo(".btValiderUpMonde", "click", "/trivia/CMonde/updateMonde/", "{}", "#divMessage");
     }
 
-    public function addMonde()
-    {
-        $monde = new Monde();
-        RequestUtils::setValuesToObject($monde);
-        if (DAO::insert($monde) == 1)
-            echo "Insertion de " . $monde . " ok";
-    }
 
-    public function updateMonde()
-    {
-        $monde = $_POST['nom'];
-        echo $monde;
-        //$monde = DAO::getOne("Monde", 'idMonde ='" . $ . ");
-    }
 
 }
 /*$score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");

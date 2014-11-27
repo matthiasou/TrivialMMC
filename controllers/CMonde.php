@@ -31,4 +31,39 @@ class CMonde extends \BaseController {
             echo "Erreur. Impossible d'ajouter ce nouveau monde";
     }
 
+
+    public function addMonde()
+    {
+        $monde = new Monde();
+        RequestUtils::setValuesToObject($monde);
+        if (DAO::insert($monde) == 1)
+            echo "Insertion de " . $monde . " ok";
+    }
+
+    public function updateMonde($param)
+    {
+        $id=str_replace("btn","",$param[0]);
+        var_dump($id);
+        var_dump($_POST);
+        $result = $_POST["nom" . $id];
+        var_dump($result);
+        $monde = DAO::getOne("monde", "id = $id ");
+        $monde->setLibelle($result);
+        if(DAO::update($monde)==1)
+            echo "GG";
+        else
+            echo "you suck";
+
+
+        //$js="$('#".$id[0]."').val()";
+        //echo JsUtils::get("/trivia/CMonde/test", $js);
+        //$monde = $_POST['nom'];
+        //echo $monde;
+        //$monde = DAO::getOne("Monde", 'idMonde ='" . $ . ");
+    }
+
+    public function test($param){
+        var_dump($param);
+    }
+
 } 
