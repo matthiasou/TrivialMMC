@@ -204,7 +204,6 @@ class CJoueur extends \BaseController
         echo JsUtils::postFormAndBindTo("#btValiderUpMonde", "click", "/trivia/CJoueur/updateMonde/", "frmUpMonde", "#divMessage");
     }
 
-    
 
 }
 /*$score = DAO::getOne("Score", "idPartie = '" . $p[0] . "' AND idJoueur = '" . $idJoueur . "'");
