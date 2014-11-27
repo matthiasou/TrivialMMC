@@ -45,10 +45,7 @@ class CMonde extends \BaseController {
     public function updateMonde($param)
     {
         $id=str_replace("btn","",$param[0]);
-        var_dump($id);
-        var_dump($_POST);
         $result = $_POST["nom" . $id];
-        var_dump($result);
         $monde = DAO::getOne("monde", "id = $id ");
         $monde->setLibelle($result);
         if(DAO::update($monde)==1)

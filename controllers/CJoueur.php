@@ -201,7 +201,9 @@ class CJoueur extends \BaseController
         $stat = DAO::getAll("Statistiques", "idJoueur ='" . $idJoueur . "'");
         $this->loadView("vJoueur", array("profil" => $data, "stat" => $stat));
         echo JsUtils::postFormAndBindTo("#btValiderAddMonde", "click", "/trivia/CMonde/addMonde/", "frmAddMonde", "#divMessage");
-        echo JsUtils::postFormAndBindTo("#btValiderUpMonde", "click", "/trivia/CMonde/updateMonde/", "frmUpMonde", "#divMessage");
+        echo JsUtils::postFormAndBindTo(".btValiderUpMonde", "click", "/trivia/CMonde/updateMonde/", "frmUpMonde", "#divMessage");
+        echo JsUtils::postFormAndBindTo("#btAjDo", "click", "/trivia/CDomaine/ajoutDomaine/", "frmAddDomaine", "#divMessage");
+        echo JsUtils::postFormAndBindTo(".btValiderUpDomaine", "click", "/trivia/CDomaine/updateDomaine/", "frmModifDomaine", "#divMessage");
     }
 
 

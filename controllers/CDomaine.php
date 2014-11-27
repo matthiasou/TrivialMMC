@@ -32,6 +32,20 @@ class CDomaine extends \BaseController {
             echo "Erreur. Impossible d'ajouter ce nouveau domaine.";
     }
 
+    public function updateDomaine($param)
+    {
+        $id=str_replace("btnDomaine","",$param[0]);
+        $result = $_POST["nom" . $id];
+        $domaine = DAO::getOne("Domaine", "id = $id ");
+        $domaine->setLibelle($result);
+        if(DAO::update($domaine)==1)
+            echo "GG";
+        else
+            echo "you suck";
+
+
+    }
+
     public function load(){
         var_dump(DAO::getAll("Domaine"));
     }

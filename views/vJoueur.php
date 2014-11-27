@@ -7,16 +7,16 @@
  */
 ?>
 <html>
-    <fieldset>
-        <legend><h1>Profil de <?php echo $data["profil"]['prenom'];?></h1></legend>
+<fieldset>
+    <legend><h1>Profil de <?php echo $data["profil"]['prenom'];?></h1></legend>
 
-        Nom : <?php echo $data["profil"]['nom'];?> </br>
-        Prenom : <?php echo $data["profil"]['prenom'];?> </br>
-        Mail : <?php echo $data["profil"]['mail'];?> </br>
-        password :<?php echo $data["profil"]['password'];?> </br>
-        Niveau : <?php echo $data["profil"]['niveau'];?> </br></br>
+    Nom : <?php echo $data["profil"]['nom'];?> </br>
+    Prenom : <?php echo $data["profil"]['prenom'];?> </br>
+    Mail : <?php echo $data["profil"]['mail'];?> </br>
+    password :<?php echo $data["profil"]['password'];?> </br>
+    Niveau : <?php echo $data["profil"]['niveau'];?> </br></br>
 
-    </fieldset>
+</fieldset>
 <?php
 if($data["profil"]['niveau']==100){
     echo " " ?>
@@ -33,14 +33,14 @@ if($data["profil"]['niveau']==100){
     </form>
 
     <!-- Modifier un monde -->
-    <form id="frmUpMonde" name="frmUpMonde" class="upMonde"> -->
+    <form id="frmUpMonde" name="frmUpMonde" class="upMonde">
         <fieldset>
             <legend>Modifier un monde</legend>
             <br>
             <?php
             $mondes=DAO::getAll("Monde");
             foreach ($mondes as $monde){
-            echo "<input type='text' id='" . $monde->getId() . "' name='nom" . $monde->getId() . "' value='" . $monde . "'><input type='button' value='Valider' id='btn" . $monde->getId() . "' class='btValiderUpMonde'></br>";
+                echo "<input type='text' id='" . $monde->getId() . "' name='nom" . $monde->getId() . "' value='" . $monde . "'><input type='button' value='Valider' id='btn" . $monde->getId() . "' class='btValiderUpMonde'></br>";
 
             }
             ?>
@@ -48,6 +48,58 @@ if($data["profil"]['niveau']==100){
         </fieldset>
 
     </form>
+    <!-- Fin -->
+
+
+
+    <!-- Ajouter un domaine -->
+
+    <form id="frmAddDomaine" name="frmAddDomaine">
+        <fieldset>
+
+            <legend>Ajouter domaine :</legend>
+
+            <table border="0">
+
+                <tr><td>Choisir un monde en lien :</td>
+                    <td><select id="idMonde" name="idMonde">
+                            <?php
+                            $mondes=DAO::getAll("Monde");
+                            foreach ($mondes as $idMonde){
+                                echo Gui::select($idMonde);
+                            }
+                            ?>
+                        </select></td></tr>
+                <!--<label for="idMonde">Entrer id monde</label><input type="text" id="idMonde" name="idMonde"><br>-->
+                <tr><td>Nom du domaine :</td><td> <input type="text" id="libelle" name="libelle"></td></tr>
+                <tr><td>Description du domaine : </td><td><input type="text" id="description" name="description"><br></td></tr>
+                <tr><td colspan="2" align="center"><input type="button" value="Valider" id="btAjDo"></td></tr>
+            </table>
+
+            <div id="divMessage"></div>
+        </fieldset>
+    </form>
+
+    <!--Fin -->
+
+    <!-- Modifier un domaine -->
+    <form id="frmModifDomaine" name="frmModifDomaine" class="upDomaine">
+        <fieldset>
+            <legend>Modifier un Domaine</legend>
+            <br>
+            <?php
+            $domaines=DAO::getAll("Domaine");
+            foreach ($domaines as $domaine){
+                echo "<input type='text' id='" . $domaine->getId() . "' name='nom" . $domaine->getId() . "' value='" . $domaine . "'><input type='button' value='Valider' id='btnDomaine" . $domaine->getId() . "' class='btValiderUpDomaine'></br>";
+
+            }
+            ?>
+
+        </fieldset>
+
+    </form>
+    <!-- Fin -->
+
     <?php " ";
 }
 ?>
