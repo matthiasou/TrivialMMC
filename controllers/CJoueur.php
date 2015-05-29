@@ -82,16 +82,20 @@ class CJoueur extends \BaseController
      */
     public function connexion()
     {
+        $this->loadView("vHeader");
         if ($joueur = DAO::getOne("Joueur", "login='" . $_POST["login"] . "' AND password= '" . $_POST["password"] . "'")) {
             //var_dump($joueur);
             $_SESSION["joueur1"] = $joueur;
+            echo JsUtils::get("CJoueur/index", "{}", "body");
             //var_dump($joueur);
         } else
-            echo 'Identifiants incorrects';
+
+        echo '<script>showErrorToast();</script>';
+
 
         //echo JsUtils::doSomethingOn("#frmConnexion","hide");
         //echo JsUtils::doSomethingOn("#inscription","hide");
-        echo JsUtils::get("CJoueur/index", "{}", "body");
+
     }
     /**
      * @brief Déconnexion, détruit la session
@@ -127,8 +131,11 @@ class CJoueur extends \BaseController
         $monde = DAO::getOne("Monde", $_POST["idMonde"]);
         $joueur->setMonde($monde);
         if (DAO::insert($joueur) == 1)
-            echo "Insertion de " . $joueur . " ok";
-        //echo JsUtils::get("/trivia/CJoueur/refresh","{}","#divListe");
+
+
+        echo '<script>showSuccessToast();</script>';
+
+
 
     }
     /**
@@ -138,6 +145,7 @@ class CJoueur extends \BaseController
     public function affichHead()
     {
         if (isset($_SESSION['joueur1'])) {
+            echo '<script>messageBienvenue();</script>';
             $result = "<a href='#' id='lienParties'>Parties</a> Connecté en tant que <span class='headName'><a href='#' class='lienJoueur' id='lienJoueur'>" . $_SESSION["joueur1"]->getPrenom() . "</a></span><a id='deconnexion' href='#'> Deconnexion</a>";
 
         } else {

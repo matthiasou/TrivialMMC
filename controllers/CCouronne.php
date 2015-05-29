@@ -26,6 +26,7 @@ class CCouronne extends \BaseController {
      */
     public function couronne($p){
         $this->loadView("vHeader");
+        echo JsUtils::execute('swal({   title: "Bonne réponse !",   text: "Vous pouvez choisir une couronne à débloquer",   imageUrl: "/trivia/images/qstCou.png" });');
 
         $joueur = $_SESSION['joueur1']; // recupere le joueur
         $idJoueur= $_SESSION['joueur1']->getId(); // son id
@@ -98,7 +99,9 @@ class CCouronne extends \BaseController {
         $estBonne=DAO::getOne("Reponse",$p[1])->getEstBonne();
 
         if($estBonne == 1){
-            echo JsUtils::execute('alert("Nouvelle couronne débloquée:")');
+            //echo JsUtils::execute('alert("Nouvelle couronne débloquée:")');
+            echo JsUtils::execute('swal({   title: "Nouvelle couronne débloquée!",   text: "",   imageUrl: "/trivia/images/couronne.png" });');
+
            // $couronne = DAO::getOne("Couronne","idJoueur='".$idJoueur."' AND idPartie= '".$p[0]."' AND idDomaine='".$idDomaine."'");
             //var_dump($couronne);
             $couronne=new Couronne();
@@ -116,8 +119,12 @@ class CCouronne extends \BaseController {
                 $partie =  DAO::getOne("Partie","id= ".$p[0]);
                 $partie->setPartieFini("1");
                 DAO::update($partie);
-                echo JsUtils::execute('alert("Vous avez gagné !")');
-                echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+                //echo JsUtils::execute('alert("Vous avez gagné !")');
+                echo JsUtils::execute('swal({   title: "Victoire !",   text: "Vous avez remporté la partie",   imageUrl: "/trivia/images/victoire.png" });');
+                echo JsUtils::execute('setTimeout(function(){
+                        $(location).attr("href","/trivia/CJoueur");
+                    }, 2000);');
+               // echo JsUtils::execute('window.location = " /trivia/CJoueur"');
 
 
             }
@@ -140,8 +147,12 @@ class CCouronne extends \BaseController {
             }
             $partie->setDernierCoup(date("Y-m-d H:i:s"));
             DAO::update($partie);
-            echo JsUtils::execute('alert("Mauvaise réponse !")');
-            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+            echo JsUtils::execute('swal({   title: "Mauvaise réponse !",   text: "A l autre joueur de jouer",   imageUrl: "/trivia/images/pouce.png" });');
+            echo JsUtils::execute('setTimeout(function(){
+                        $(location).attr("href","/trivia/CJoueur");
+                    }, 2000);');
+            //echo JsUtils::execute('alert("Mauvaise réponse !")');
+            //echo JsUtils::execute('window.location = " /trivia/CJoueur"');
 
         }
 

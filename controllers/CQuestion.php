@@ -71,7 +71,7 @@ class CQuestion extends \BaseController {
      * une couronne à jouer. Enfin, elle met à jour les statistiques du joueur.
      */
     public function checkAnswer($p){
-        var_dump($p);
+        //var_dump($p);
         //$idDomaine = $_SESSION['idDomaine'];
         echo JsUtils::doSomethingOn("#frmScore","hide");
         $estBonne=DAO::getOne("Reponse",$p[2])->getEstBonne();
@@ -86,12 +86,15 @@ class CQuestion extends \BaseController {
             //var_dump($stat);
             $stat->incBonnesReponses();
             DAO::update($stat);
-            echo JsUtils::execute('alert("Bonne réponse")');
+            if ($score->getRepSuccessives()<3) {
+                echo '<script>swal("Bonne réponse !", " ", "success")</script>';
+               // echo '<script>swal({   title: "Sweet!",   text: "Heres a custom image.",   imageUrl: "images/thumbs-up.jpg" });</script>';
+            }
             // nouvelle question
             if ($score->getRepSuccessives()==3){
                 $score->setRepSuccessives("0");
                 DAO::update($score);
-                echo JsUtils::execute('alert("Tu vas pouvoir jouer une couronne GG ! ")');
+              //  echo '<script>swal("Bonne réponse !", "You clicked the button!", "success")</script>';
                 echo JsUtils::execute('window.location = " /trivia/CCouronne/couronne/'.$p[0].'"');
             }
             else {
@@ -153,33 +156,51 @@ class CQuestion extends \BaseController {
             if (sizeof($couronneJ1) > sizeof($couronneJ2)) {
                 $scoreJ1->setGagne("1");
                 echo JsUtils::execute('alert("Vous avez gagné, vous avez plus de couronne !")');
+                echo JsUtils::execute('swal({   title: "Gagné !",   text: "vous avez plus de couronne !",   imageUrl: "/trivia/images/victoire.png" });');
             } elseif (sizeof($couronneJ1) < sizeof($couronneJ2)) {
                 $scoreJ2->setGagne("1");
-                echo JsUtils::execute('alert("Vous avez perdu votre adversaire à plus de couronne !")');
+                //echo JsUtils::execute('alert("Vous avez perdu votre adversaire à plus de couronne !")');
+                echo JsUtils::execute('swal({   title: "Perdu !",   text: "Vous avez perdu votre adversaire à plus de couronne !",   imageUrl: "/trivia/images/loose.png" });');
             } elseif (sizeof($couronneJ1) == sizeof($couronneJ2)) {
                 if ($scoreJ1->getNbBonnesReponses() > $scoreJ2->getNbBonnesReponses()) {
-                    echo JsUtils::execute('alert("Vous avez gagné car vous avez le meilleur nombre de bonnes réponses !")');
+                   // echo JsUtils::execute('alert("Vous avez gagné car vous avez le meilleur nombre de bonnes réponses !")');
+                    echo JsUtils::execute('swal({   title: "Victoire !",   text: "Vous avez gagné car vous avez le meilleur nombre de bonnes réponses !,   imageUrl: "/trivia/images/victoire.png" });');
                     $scoreJ1->setGagne("1");
 
                 } elseif ($scoreJ1->getNbBonnesReponses() == $scoreJ2->getNbBonnesReponses()) {
                     $scoreJ2->setEgalite("1");
                     $scoreJ1->setEgalite("1");
-                    echo JsUtils::execute('alert("Egalité !")');
+                    //echo JsUtils::execute('alert("Egalité !")');
+                    echo JsUtils::execute('swal({   title: "Egalité !",   text: "La prochaine fois essaye de battre ton adversaire",   imageUrl: "/trivia/images/egalite.png" });');
+
                 } else {
                     $scoreJ2->setGagne("1");
-                    echo JsUtils::execute('alert("Vous avez perdu!")');
+                    //echo JsUtils::execute('alert("Vous avez perdu !")');
+                    echo JsUtils::execute('swal({   title: "Vous avez perdu!",   text: "Ce sera mieux la prochaine fois",   imageUrl: "/trivia/images/loose.png" });');
                 }
 
             }
             DAO::update($scoreJ1);
             DAO::update($scoreJ2);
 
-            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+            //echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+            echo JsUtils::execute('setTimeout(function(){
+                        $(location).attr("href","/trivia/CJoueur");
+                    }, 2000);');
 
         } else {
             // Mauvaise reponse -> retour au menu, changement JoueurEnCours
-            echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
-            echo JsUtils::execute('window.location = " /trivia/CJoueur"');
+            echo JsUtils::execute('swal({   title: "Mauvaise réponse !",   text: "A l autre joueur de jouer",   imageUrl: "/trivia/images/pouce.png" });');
+
+
+            //echo JsUtils::execute('alert("Mauvaise réponse, à l autre joueur de jouer ! ")');
+            echo JsUtils::execute('setTimeout(function(){
+                        $(location).attr("href","/trivia/CJoueur");
+                    }, 1500);');
+
+
+            //echo JsUtils::get("CJoueur/index", "{}", "body");
+
             //->changementJoueurEnCours();
 
         }
@@ -190,11 +211,11 @@ class CQuestion extends \BaseController {
      */
         public function ajoutQuestion() {
             $idJoueur = $_SESSION["joueur1"]->getId();
-            var_dump($idJoueur);
+            //var_dump($idJoueur);
             $question=new Question();
             RequestUtils::setValuesToObject($question);
             $domaine=DAO::getOne("Domaine", $_POST["idQuestion"]);
-            var_dump($domaine);
+            //var_dump($domaine);
             $question->setDomaine($domaine->getId());
             $question->setJoueur($idJoueur);
             DAO::insert($question);
