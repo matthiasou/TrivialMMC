@@ -26,14 +26,17 @@ foreach ($data->getReponses() as $reponse){
     <div id="messageReponse">
 
     </div>
-
+    <div style="font-size: 80%;" align="center">
     <?php
     echo "<br/> Question soumise par ".$data->getJoueur()->getPrenom();
     echo " <a href='#' class='signalerQuestion' id='signalerQuestion'>Signaler cette question</a><br/><br/>";
     ?>
+    </div>
+    <div id="messageSignalement">
+
+    </div>
 </div>
-</div>
-<div id="messageSignalement">
 
 </div>
+
 

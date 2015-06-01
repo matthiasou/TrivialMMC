@@ -40,7 +40,8 @@ class CPartie extends \BaseController {
         }
 
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
-        $question=DAO::getOne("Question", "1=1 ORDER BY RAND() LIMIT 1");
+        $domaine = DAO::getOne("Domaine", "idMonde =" . $joueur->getMonde()->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
+        $question=DAO::getOne("Question", "idDomaine=".$domaine->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
         $idDomaine =$question->getDomaine()->getId();
         DAO::getOneToMany($question, "reponses");
 

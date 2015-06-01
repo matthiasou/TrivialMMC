@@ -83,9 +83,21 @@ class CQuestion extends \BaseController {
             $score->incNbBonnesReponses();
             DAO::update($score);
             $stat=DAO::getOne("Statistiques", "idDomaine = '". $p[1]. "' AND idJoueur = '" . $idJoueur . "'");
+            if ($stat == NULL){
+                $statistiques= new  Statistiques();
+                $statistiques->setIdDomaine($p[1]);
+                $statistiques->setIdJoueur($idJoueur);
+                $statistiques->setNbBonnesReponses("1");
+                $statistiques->setNbReponses("1");
+                DAO::insert($statistiques);
+
+            }
+            else{
+                $stat->incBonnesReponses();
+                DAO::update($stat);
+            }
             //var_dump($stat);
-            $stat->incBonnesReponses();
-            DAO::update($stat);
+
             if ($score->getRepSuccessives()<3) {
                 echo '<script>swal("Bonne réponse !", " ", "success")</script>';
                // echo '<script>swal({   title: "Sweet!",   text: "Heres a custom image.",   imageUrl: "images/thumbs-up.jpg" });</script>';
