@@ -1,5 +1,7 @@
 $(function(){
-
+	 
+	$('#divBouton').hide();
+	
 	$('.roulette').find('img').hover(function(){
 		console.log($(this).height());
 	});
@@ -7,7 +9,7 @@ $(function(){
 		$('#msg')
 	.append('<p class="muted">' + msg + '</p>')
 	.scrollTop(100000000);
-
+		
 	}
 	var p = {
 		startCallback : function() {
@@ -25,11 +27,23 @@ $(function(){
 			appendLogMsg('stop');
 			$('#speed, #duration').slider('enable');
 			$('#stopImageNumber').spinner('enable');
-			$('.start').removeAttr('disabled');
+		/*	$('.start').removeAttr('disabled');*/
 			$('.stop').attr('disabled', 'true');
+			$('#divBouton').show();
+			//$('.nextQuestion').click(window.location = "/trivia/CQuestion");
+			 
+				/* $(".nextQuestion").click(function() { 
+					 var q = $(".nextQuestion").attr('id');
+					 if(q == 1){
+						 window.location="/trivia/CDomaine/couronne"; 
+					 }
+				 	else{
+				 		window.location="/trivia/CQuestion/"; 
+				 		}
+				 });*/
+			 }
+			
 		}
-
-	}
 	var rouletter = $('div.roulette');
 	rouletter.roulette(p);	
 	$('.stop').click(function(){
@@ -56,7 +70,7 @@ $(function(){
 	$('#speed').slider({
 		min: 1,
 		max: 30,
-		value : 10,
+		value : 30,
 		slide: function( event, ui ) {
 			updateSpeed(ui.value);
 			updateParamater();
@@ -88,6 +102,7 @@ $(function(){
 	$('#stopImageNumber').spinner({
 		spin: function( event, ui ) {
 			var imageNumber = ui.value;
+			
 			if ( ui.value > 4 ) {
 				$( this ).spinner( "value", -1 );
 				imageNumber = 0;	
@@ -102,7 +117,8 @@ $(function(){
 			updateStopImageNumber(imageNumber);		
 		}
 	});
-	$('#stopImageNumber').spinner('value', 0);
+	var e = $('#mage').attr('value');
+	$('#stopImageNumber').spinner('value',e);
 	updateStopImageNumber($('#stopImageNumber').spinner('value'));		
 
 	$('.image_sample').children().click(function(){

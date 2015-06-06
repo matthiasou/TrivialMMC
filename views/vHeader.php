@@ -12,12 +12,11 @@ require_once 'technics/Gui.php';
     <script type="text/javascript" src="<?php echo $GLOBALS["siteUrl"]?>js/jquery.toastmessage-min.js"></script>
     <script src="<?php echo $GLOBALS["siteUrl"]?>js/sweetalert.min.js"></script>
 
-    <script src="<?php echo $GLOBALS["siteUrl"]?>js/roulette.js"></script>
-    <script src="<?php echo $GLOBALS["siteUrl"]?>js/roulette.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="<?php echo $GLOBALS["siteUrl"]?>css/sweetalert.css">
 <script type="text/javascript" src="<?php echo $GLOBALS["siteUrl"]?>js/jquery.validate.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $GLOBALS["siteUrl"]?>css/main.css">
+
+
 
 <title>TriviaMMC</title>
     <div class="head">

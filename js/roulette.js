@@ -1,3 +1,4 @@
+
 (function($) {
 	var Roulette = function(options) {
 		var defaultSettings = {
@@ -154,6 +155,7 @@
 					}
 				}
 				slowDownSetup();
+				
 			}
 		}
 		var option = function(options) {
@@ -169,6 +171,7 @@
 			stop : stop,
 			init : init,
 			option : option
+			
 		}
 		return ret;
 	}

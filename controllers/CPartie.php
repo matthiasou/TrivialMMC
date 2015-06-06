@@ -40,25 +40,28 @@ class CPartie extends \BaseController {
         }
 
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
-        $domaine = DAO::getOne("Domaine", "idMonde =" . $joueur->getMonde()->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
-        $question=DAO::getOne("Question", "idDomaine=".$domaine->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
-        $idDomaine =$question->getDomaine()->getId();
-        DAO::getOneToMany($question, "reponses");
+        echo JsUtils::get("/trivia/CQuestion/afficherRoulette/".$idPartie, "{}", "#divMessage");
 
-        // ********** affiche un encadré avec des infos sur la partie
-            $partie = DAO::getOne("Partie","id=".$idPartie);
-            $couronneJ1 = DAO::getAll("Couronne","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
-            $couronneJ2 = DAO::getAll("Couronne","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
-            $scoreJ1 = DAO::getOne("Score","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
-            $scoreJ2 = DAO::getOne("Score","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
-            $info =array("partie"=>$partie, "couronneJ1"=>$couronneJ1, "couronneJ2"=>$couronneJ2, "scoreJ1"=>$scoreJ1, "scoreJ2"=>$scoreJ2);
 
-            $this->loadView("vInfoPartie",$info);
-        // ********** FIN
+        /* $domaine = DAO::getOne("Domaine", "idMonde =" . $joueur->getMonde()->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
+         $question=DAO::getOne("Question", "idDomaine=".$domaine->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
+         $idDomaine =$question->getDomaine()->getId();
+         DAO::getOneToMany($question, "reponses");
 
-        $this->loadView("vQuestion", $question);
-        echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie ."/". $idDomaine, "{}", "#divQuestion");
-        echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#messageSignalement");
+         // ********** affiche un encadré avec des infos sur la partie
+             $partie = DAO::getOne("Partie","id=".$idPartie);
+             $couronneJ1 = DAO::getAll("Couronne","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+             $couronneJ2 = DAO::getAll("Couronne","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+             $scoreJ1 = DAO::getOne("Score","idJoueur=".$idJoueur." AND idPartie=".$idPartie);
+             $scoreJ2 = DAO::getOne("Score","idJoueur!=".$idJoueur." AND idPartie=".$idPartie);
+             $info =array("partie"=>$partie, "couronneJ1"=>$couronneJ1, "couronneJ2"=>$couronneJ2, "scoreJ1"=>$scoreJ1, "scoreJ2"=>$scoreJ2);
+
+             $this->loadView("vInfoPartie",$info);
+         // ********** FIN
+
+         $this->loadView("vQuestion", $question);
+         echo JsUtils::getAndBindTo(".reponse", "click", "/trivia/CQuestion/checkAnswer/" . $idPartie ."/". $idDomaine, "{}", "#divQuestion");
+         echo JsUtils::getAndBindTo("#signalerQuestion", "click", "/trivia/CQuestion/signalerQuestion/", "{}", "#messageSignalement");*/
 
 
 

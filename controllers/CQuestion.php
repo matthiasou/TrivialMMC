@@ -28,13 +28,13 @@ class CQuestion extends \BaseController {
      */
     public function randomQuestion($params){
 
-        $aChanger = array("jouer", "rejoindre");
-        $idPartie = str_replace($aChanger, "", $params[0]); // récupere l'id de la partie
+
+        $idPartie = $params[0]; // récupere l'id de la partie
         $idJoueur = $_SESSION['joueur1']->getId();
         $joueur = $_SESSION['joueur1']; // recupere le joueur
 
         echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
-        $domaine = DAO::getOne("Domaine", "idMonde =" . $joueur->getMonde()->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
+        $domaine = $_SESSION['domaine'];
         $question=DAO::getOne("Question", "idDomaine=".$domaine->getId()." AND 1=1 ORDER BY RAND() LIMIT 1");
         $idQuestion = $question->getId();
         $idDomaine =$question->getDomaine()->getId();
@@ -107,12 +107,14 @@ class CQuestion extends \BaseController {
                 $score->setRepSuccessives("0");
                 DAO::update($score);
               //  echo '<script>swal("Bonne réponse !", "You clicked the button!", "success")</script>';
-                echo JsUtils::execute('window.location = " /trivia/CCouronne/couronne/'.$p[0].'"');
+                echo JsUtils::get("/trivia/CCouronne/couronne/".$p[0], "{}", "#divMessage");
+                echo JsUtils::postFormAndBindTo("#btChoixCouronne","click","/trivia/CCouronne/questionCouronne/". $p[0],"frmChoixCouronne","#divMessage");
+               // echo JsUtils::execute('window.location = " /trivia/CCouronne/couronne/'.$p[0].'"');
             }
             else {
                 //echo JsUtils::doSomethingOn("#divListe","hide");
                 $question = new  CQuestion();
-                $question->randomQuestion($p);
+                $question->afficherRoulette($p);
                 //JsUtils::get("/CQuestion/randomQuestion", $question);
             }
             }
@@ -253,7 +255,7 @@ class CQuestion extends \BaseController {
      * @brief Permet d'envoyer un rapport de signalement de question d'un joueur à un administrateur.
      * @details Les informations de la question et du joueur sont envoyé à l'administrateur avec un message d'explication rédigé par le joueur.
      */
-    public function    ajouterSignalement($idQuestion){
+    public function  ajouterSignalement($idQuestion){
         // il faut prendre la texte area et mettre dans le champ libelle de la table probleme
         // Puis mettre dans la table signalement l'id du problème, idJouee-> session, , idQuestion et la date grace à la fonction date
 
@@ -273,6 +275,53 @@ class CQuestion extends \BaseController {
 
         }
 
+    }
+
+
+
+    public function afficherRoulette($params) {
+        //$this->loadView("vHeader");
+        $aChanger = array("jouer", "rejoindre");
+        $idPartie = str_replace($aChanger, "", $params[0]); // récupere l'id de la partie
+        echo JsUtils::doSomethingOn("#divListe","hide"); // cache le menu principal avec les parties
+        echo JsUtils::getAndBindTo("#question", "click", "/trivia/CQuestion/randomQuestion/".$idPartie,"{}","#divMessage");
+       // echo JsUtils::getAndBindTo("#btAjQu", "click", "/trivia/CQuestion/randomQuestion".$idPartie, "{}","#divMessage");
+        $joueur = $_SESSION['joueur1'];
+
+
+
+
+        $this->selectDomaine($joueur);
+        $domains = $this->selectDomaines($joueur);
+        $this->loadView("vRoulette",$domains);
+
+
+
+    }
+
+
+    /**
+     * Récupère tous les domaines qui font partie du monde du joueur
+     * @param unknown $joueur
+     * @return $domaine
+     */
+    public function selectDomaines($joueur){
+        $domaine = DAO::getAll("Domaine","idMonde =".$joueur->getMonde()->getId());
+
+        return $domaine;
+    }
+
+    /**
+     * Retourne un domaine aléatoire
+     * @param unknown $joueur
+     * @return $domaine
+     */
+    public function selectDomaine($joueur){
+        $domaine = DAO::getOne("Domaine","idMonde =".$joueur->getMonde()->getId()." ORDER BY rand() limit 1");
+        //$domaine = DAO::getOne("Domaine","idMonde =".$joueur->getMonde()->getId()." AND libelle like 'Couronne'");
+        $_SESSION['domaine'] = $domaine;
+
+        return $domaine;
     }
 
 } 

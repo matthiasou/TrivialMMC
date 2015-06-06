@@ -146,7 +146,7 @@ class CJoueur extends \BaseController
     {
         if (isset($_SESSION['joueur1'])) {
             echo '<script>messageBienvenue();</script>';
-            $result = "<a href='#' id='lienParties'>Parties</a> Connecté en tant que <span class='headName'><a href='#' class='lienJoueur' id='lienJoueur'>" . $_SESSION["joueur1"]->getPrenom() . "</a></span><a id='deconnexion' href='#'> Deconnexion</a>";
+            $result = "<a href='#' id='lienParties'>Parties</a> Connecté en tant que <span class='headName'><a href='#' class='lienJoueur' id='lienJoueur'>" . $_SESSION["joueur1"]->getPrenom() . "&nbsp&nbsp&nbsp</a></span><img src='/trivia/images/logout.png' id='deconnexion' href='#'>";
 
         } else {
             $result = "<a href='CJoueur'>Connectez-vous</a>";

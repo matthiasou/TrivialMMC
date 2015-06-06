@@ -17,7 +17,7 @@
         //echo $partiesEnCours."</br>";
     }
 
-    echo JsUtils::getAndBindTo(".jouer", "click", "/trivia/CQuestion/randomQuestion", "{}","#divMessage");
+    echo JsUtils::getAndBindTo(".jouer", "click", "/trivia/CQuestion/afficherRoulette", "{}","#divMessage");
     echo'<br>';
     echo"<h2>Parties en attente d un joueur :</h2>";
     foreach ($data["pEnAttentes"] as $partiesEnAttentes){

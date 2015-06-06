@@ -25,8 +25,8 @@ class CCouronne extends \BaseController {
      * @details Renvoi les couronnes manquantes à la vue vCouronne, Affiche la vue vCouronne
      */
     public function couronne($p){
-        $joueur = new  CJoueur();
-        $joueur->affichHead();
+        //$joueur = new  CJoueur();
+        //$joueur->affichHead();
 
 
         echo JsUtils::execute('swal({   title: "Bonne réponse !",   text: "Vous pouvez choisir une couronne à débloquer",   imageUrl: "/trivia/images/qstCou.png" });');
@@ -133,8 +133,9 @@ class CCouronne extends \BaseController {
             }
             else {
 
-                $question = new  CQuestion();
-                $question->randomQuestion($p);
+
+                echo JsUtils::get("/trivia/CQuestion/afficherRoulette/".$p[0], "{}", "#divMessage");
+
 
             }
 

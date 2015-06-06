@@ -10,6 +10,7 @@ class Domaine extends \BaseObject{
 
     private $libelle;
     private $description;
+    private $icon;
 
     /**
      * @ManyToOne
@@ -89,6 +90,15 @@ class Domaine extends \BaseObject{
 
     public function toString(){
         return $this->libelle;
+    }
+
+
+    public function getIcon() {
+        return $this->icon;
+    }
+    public function setIcon($icon) {
+        $this->icon = $icon;
+        return $this;
     }
 
 

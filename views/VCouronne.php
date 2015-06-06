@@ -20,3 +20,6 @@
     </fieldset>
 </form>
 </div>
+<div id="divMessage2"></div>
+
+<div id="divMessage"></div>
