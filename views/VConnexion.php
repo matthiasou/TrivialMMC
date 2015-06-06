@@ -81,7 +81,7 @@
         });
     }
     function showErrorToast2() {
-        $().toastmessage('showErrorToast', " Impossible de se défier sois même ! ");
+        $().toastmessage('showErrorToast', " Impossible de se défier soi même ! ");
     }
 
 
