@@ -8,6 +8,7 @@ class CJoueur extends \BaseController
     {
         $this->loadView("vHeader");
         $this->refresh();
+        echo JsUtils::doSomethingOn("#divInviterJoueur", "hide");
         echo "<div id='divMessage'></div>";
     }
     /**
@@ -27,6 +28,7 @@ class CJoueur extends \BaseController
         echo JsUtils::postFormAndBindTo("#btValider", "click", "/trivia/CJoueur/connexion/", "frmConnexion", "#divMessage");
         echo JsUtils::getAndBindTo("#inscription", "click", "/trivia/CJoueur/viewInscription/", "{}", "#divMessage");
         echo JsUtils::getAndBindTo("#deconnexion", "click", "/trivia/CJoueur/deconnexion/", "{}", "#divMessage");
+
 
 
         $this->listerParties();

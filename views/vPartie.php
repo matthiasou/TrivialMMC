@@ -1,6 +1,17 @@
 <div id="divListe">
     <?php
-    echo " <a class='creerPartie' href='#'>Créer Partie</a><br/><br/>";
+    echo " <a class='creerPartie' href='#'>Créer Partie</a><br/>";
+    echo " <a class='inviterJoueur' href='#'>Inviter Joueur</a><br/><br/>"; ?>
+    <div id="divInviterJoueur">
+        <form id="frmInviterJoueur" name="frmInviterJoueur">
+            <input id="loginJoueur" name="loginJoueur" type="text" placeholder="login du joueur" style="border:solid 1px black; border-radius:5px; text-align:center; box-shadow:0 0 6px;" />
+            <input type="button" value="Valider" id="btValiderJoueur">
+        </form>
+
+    </div>
+
+    <?php
+    echo JsUtils::getAndBindTo(".inviterJoueur", "click", "/trivia/CPartie/viewInviterJoueur/", "{}", "#divMessage");
     echo JsUtils::getAndBindTo(".creerPartie", "click", "/trivia/CPartie/creerPartie", "{}","#divMessage");
     echo"<h2>Parties joignables :</h2>";
     foreach ($data["pJoignables"] as $partiesJoignables){
@@ -35,3 +46,20 @@
 
     ?>
 </div>
+<script type="text/javascript">
+
+
+    function showErrorToast() {
+        $().toastmessage('showErrorToast', " Le Login entré n'existe pas ! ");
+    }
+
+    function showErrorToast2() {
+        $().toastmessage('showErrorToast', " Impossible de se défier sois même ! ");
+    }
+
+
+
+
+
+
+</script>

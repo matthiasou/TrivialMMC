@@ -97,4 +97,53 @@ class CPartie extends \BaseController {
 
     }
 
+    public function viewInviterJoueur(){
+        echo JsUtils::doSomethingOn("#divInviterJoueur", "show",1000);
+        echo JsUtils::postFormAndBindTo("#btValiderJoueur", "click", "/trivia/CPartie/inviterJoueur/", "frmInviterJoueur", "#divMessage");
+
+    }
+
+    public function inviterJoueur(){
+        $joueur2 = DAO::getOne("Joueur", "login ='" . $_POST["loginJoueur"] . "'"); // recupére le joueur grâce au login
+        if($joueur2 == null){
+            echo '<script>showErrorToast();</script>';
+        }
+        elseif($joueur2==$_SESSION['joueur1']){
+            echo '<script>showErrorToast2();</script>';
+        }
+        else{
+            $joueur = $_SESSION['joueur1'];
+            $idJoueur = $_SESSION['joueur1']->getId();
+            $partie = new partie();
+            $partie->setJoueur1($joueur);
+            $partie->setJoueur2($joueur2);
+            $partie->setJoueurEnCours($joueur2);
+            $partie->setDernierCoup(date("Y-m-d H:i:s"));
+            DAO::insert($partie);
+
+            $idPartie =$partie->getId();
+            $score = new score();
+            $score->setIdPartie($idPartie);
+            $score->setIdJoueur($idJoueur);
+            $score->setNbBonnesReponses("0");
+            $score->setNbManches("1");
+            $score->setRepSuccessives("0");
+            DAO::insert($score);
+
+            $score2 = new score();
+            $score2->setIdPartie($idPartie);
+            $score2->setIdJoueur($joueur2->getId());
+            $score2->setNbBonnesReponses("0");
+            $score2->setNbManches("1");
+            $score2->setRepSuccessives("0");
+            DAO::insert($score2);
+
+            echo '<script>swal("Joueur invité !", " ", "success")</script>';
+            echo JsUtils::execute('setTimeout(function(){
+                        $(location).attr("href","/trivia/CJoueur");
+                    }, 2000);');
+
+        }
+    }
+
 } 

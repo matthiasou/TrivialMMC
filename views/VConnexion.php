@@ -80,6 +80,9 @@
             }
         });
     }
+    function showErrorToast2() {
+        $().toastmessage('showErrorToast', " Impossible de se défier sois même ! ");
+    }
 
 
 
