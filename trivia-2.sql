@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 07 Juin 2015 à 18:06
+-- Généré le :  Dim 07 Juin 2015 à 23:32
 -- Version du serveur :  5.6.20
 -- Version de PHP :  5.5.15
 
@@ -44,17 +44,21 @@ CREATE TABLE IF NOT EXISTS `domaine` (
   `libelle` varchar(255) DEFAULT NULL,
   `description` text,
   `icon` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `domaine`
 --
 
 INSERT INTO `domaine` (`id`, `idMonde`, `libelle`, `description`, `icon`) VALUES
-(1, 1, 'Laptops', 'Domaine des ordinateurs portables du monde informatique.', 'flower.png'),
-(2, 1, 'Desktops', 'Domaine des ordinateurs de bureau du monde informatique.', 'chomp.png'),
+(1, 1, 'Laptops', 'Domaine des ordinateurs portables du monde informatique.', 'laptop.png'),
+(2, 1, 'Desktops', 'Domaine des ordinateurs de bureau du monde informatique.', 'desktop.png'),
 (3, 2, 'Thrillers', 'Domaine des thrillers du monde de la librairie.', 'coin.png'),
-(4, 2, 'Couronne', 'Domaine des biographies du monde de la librairie.', 'couronne.png');
+(4, 2, 'Couronne', 'Domaine des biographies du monde de la librairie.', 'couronne.png'),
+(5, 1, 'tablet', 'Questions portant sur les tablettes', 'tablet.png'),
+(6, 1, 'smartphone', 'Domaine portant sur les smartphones', 'smartphone.png'),
+(7, 1, 'apple', 'Domaine portant sur la marque apple', 'apple.png'),
+(8, 1, 'microsoft', 'Domaine portant sur Microsoft', 'microsoft.png');
 
 -- --------------------------------------------------------
 
@@ -114,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `partie` (
   `idJoueur2` int(11) DEFAULT NULL,
   `dernierCoup` datetime DEFAULT NULL,
   `partieFini` tinyint(1) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=98 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=105 ;
 
 -- --------------------------------------------------------
 
@@ -125,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `partie` (
 CREATE TABLE IF NOT EXISTS `probleme` (
 `id` int(11) NOT NULL,
   `libelle` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -139,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `idJoueur` int(11) DEFAULT NULL,
   `libelle` text,
   `validation` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Contenu de la table `question`
@@ -151,7 +155,11 @@ INSERT INTO `question` (`id`, `idDomaine`, `idJoueur`, `libelle`, `validation`) 
 (3, 2, 12, 'Question 1 desktop ?', 1),
 (4, 2, 12, 'Question 2 desktop ?', 1),
 (5, 3, 12, 'Pas censé avoir cette question ?', 1),
-(6, 3, 12, 'Pas censé avoir cette question ?', 1);
+(6, 3, 12, 'Pas censé avoir cette question ?', 1),
+(9, 5, 12, 'Question pour tablette ?', 1),
+(10, 6, 12, 'Question pour smartphone ? ', 1),
+(11, 7, 14, 'Question sur apple ?', 1),
+(12, 8, 12, 'Question sur microsoft ?', 1);
 
 -- --------------------------------------------------------
 
@@ -164,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `reponse` (
   `idQuestion` int(11) NOT NULL,
   `libelle` varchar(255) DEFAULT NULL,
   `estBonne` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
 
 --
 -- Contenu de la table `reponse`
@@ -194,7 +202,23 @@ INSERT INTO `reponse` (`id`, `idQuestion`, `libelle`, `estBonne`) VALUES
 (21, 6, 'Mauvaise', 0),
 (22, 6, 'Bonne', 1),
 (23, 6, 'mauvaise', 0),
-(24, 6, 'mauvaise', 0);
+(24, 6, 'mauvaise', 0),
+(25, 12, 'bonne', 1),
+(26, 12, 'mauvaise', 0),
+(27, 12, 'mauvaise', 0),
+(28, 12, 'pas celle la ', 0),
+(29, 11, 'clic en dessous', 0),
+(30, 11, 'Bonne reponse', 1),
+(31, 11, 'mauvaise', 0),
+(32, 11, 'mauvaise', 0),
+(33, 10, 'mauvause', 0),
+(34, 10, 'mauvaise', 0),
+(35, 10, 'bonne', 1),
+(36, 10, 'mauvaise', 0),
+(37, 9, 'bonne', 1),
+(38, 9, 'mauvaise', 0),
+(39, 9, 'mauvaise', 0),
+(40, 9, 'mauvaise', 0);
 
 -- --------------------------------------------------------
 
@@ -316,7 +340,7 @@ ALTER TABLE `statistiques`
 -- AUTO_INCREMENT pour la table `domaine`
 --
 ALTER TABLE `domaine`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `joueur`
 --
@@ -331,22 +355,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT pour la table `partie`
 --
 ALTER TABLE `partie`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=98;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT pour la table `probleme`
 --
 ALTER TABLE `probleme`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `question`
 --
 ALTER TABLE `question`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `reponse`
 --
 ALTER TABLE `reponse`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- Contraintes pour les tables exportées
 --
