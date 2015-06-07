@@ -41,7 +41,7 @@ a:hover {
 }
 .score {
 
-    width: 400px;
+
     padding-right: 0px;
     font-weight: 300;
     font-size: 85%;
@@ -319,4 +319,15 @@ color: #ffffff;
     padding: 5px 20px 5px 20px;
     text-decoration: none;
     width: 450px;
+}
+
+
+#verte{
+    color: #008000;
+    display: inline;
+}
+
+#rouge{
+    color: #FF0000;
+    display: inline;
 }
