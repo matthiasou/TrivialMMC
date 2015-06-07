@@ -13,9 +13,23 @@
     Nom : <?php echo $data["profil"]['nom'];?> </br>
     Prenom : <?php echo $data["profil"]['prenom'];?> </br>
     Mail : <?php echo $data["profil"]['mail'];?> </br>
-    password :<?php echo $data["profil"]['password'];?> </br>
     Niveau : <?php echo $data["profil"]['niveau'];?> </br></br>
+    <input type="button"value="Modifier password"  id="btModifierMdp" class="btModifierMdp">
+<br><br>
+    <div class="newPassword" id="newPassword">
+        <form id="frmChangePassword" name="frmChangePassword" class="changePassword">
+                <input type="password" name="ancienPassword" id="ancienPassword" placeholder="ancien Password">
 
+                <input type="password" name="newPassword" id="newPassword" placeholder="nouveau Password">
+
+                <input type="password" name="newPassword2" id="newPassword2" placeholder="nouveau Password">
+
+            <input type="button"value="Valider"  id="btValider">
+
+
+        </form>
+        <div id="divModif" ></div>
+    </div>
 </fieldset>
 <?php
 if($data["profil"]['niveau']==100){
@@ -104,13 +118,36 @@ if($data["profil"]['niveau']==100){
 }
 ?>
 <h1>Statistiques</h1>
-<?php  foreach($data["stat"] as $data){
-    echo $data->getDomaine()->getLibelle()." : ";
-    echo round($data->getNbBonnesReponses() * 100 / $data->getNbReponses())."%</br>";
+<?php
+    $nbBonnesRep=0;
+    $nbReponses = 0;
+    foreach($data["stat"] as $data){
+        echo $data->getDomaine()->getLibelle()." : ";
+        echo round($data->getNbBonnesReponses() * 100 / $data->getNbReponses())."%</br>";
+        $nbBonnesRep= $nbBonnesRep + $data->getNbBonnesReponses();
+        $nbReponses = $nbReponses + $data->getNbReponses();
 }
+echo"Nombre de questions répondues: ".$nbReponses;
+echo '<br>';
+echo " Bonnes réponses: ".$nbBonnesRep;
+echo '<br>';
+if ($nbBonnesRep != 0){
+    echo "Pourcentage de bonnes réponses: ".round($nbBonnesRep * 100 / $nbReponses)."%</br>";;
+}
+
+
 ?>
+<script>
+function showErrorToast3() {
+$().toastmessage('showErrorToast', " Impossible de mettre ce mot de passe! ");
+}
 
+function showErrorToast4() {
+$().toastmessage('showErrorToast', " Ce n est pas votre mot de passe ");
+}
 
+function showSuccessToast5() {
+$().toastmessage('showSuccessToast', "Changement de mot de passe réussi.");
+}
 
-</html>
-
+</script>

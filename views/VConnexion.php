@@ -84,6 +84,20 @@
         $().toastmessage('showErrorToast', " Impossible de se défier soi même ! ");
     }
 
+    function showErrorToast3() {
+        $().toastmessage('showErrorToast', " Impossible de mettre ce mot de passe! ");
+    }
+
+    function showErrorToast4() {
+        $().toastmessage('showErrorToast', " Ce n est pas votre mot de passe ");
+    }
+
+    function showSuccessToast5() {
+        $().toastmessage('showSuccessToast', "Changement de mot de passe réussi.");
+    }
+
+
+
 
 
 </script>
