@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 01 Juin 2015 à 21:52
+-- Généré le :  Dim 07 Juin 2015 à 18:06
 -- Version du serveur :  5.6.20
 -- Version de PHP :  5.5.15
 
@@ -42,18 +42,19 @@ CREATE TABLE IF NOT EXISTS `domaine` (
 `id` int(11) NOT NULL,
   `idMonde` int(11) NOT NULL,
   `libelle` varchar(255) DEFAULT NULL,
-  `description` text
+  `description` text,
+  `icon` text NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `domaine`
 --
 
-INSERT INTO `domaine` (`id`, `idMonde`, `libelle`, `description`) VALUES
-(1, 1, 'Laptops', 'Domaine des ordinateurs portables du monde informatique.'),
-(2, 1, 'Desktops', 'Domaine des ordinateurs de bureau du monde informatique.'),
-(3, 2, 'Thrillers', 'Domaine des thrillers du monde de la librairie.'),
-(4, 2, 'Biographies', 'Domaine des biographies du monde de la librairie.');
+INSERT INTO `domaine` (`id`, `idMonde`, `libelle`, `description`, `icon`) VALUES
+(1, 1, 'Laptops', 'Domaine des ordinateurs portables du monde informatique.', 'flower.png'),
+(2, 1, 'Desktops', 'Domaine des ordinateurs de bureau du monde informatique.', 'chomp.png'),
+(3, 2, 'Thrillers', 'Domaine des thrillers du monde de la librairie.', 'coin.png'),
+(4, 2, 'Couronne', 'Domaine des biographies du monde de la librairie.', 'couronne.png');
 
 -- --------------------------------------------------------
 
@@ -68,18 +69,18 @@ CREATE TABLE IF NOT EXISTS `joueur` (
   `prenom` varchar(40) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `login` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `niveau` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `joueur`
 --
 
 INSERT INTO `joueur` (`id`, `idMonde`, `nom`, `prenom`, `mail`, `login`, `password`, `niveau`) VALUES
-(1, 1, 'LEDUCQ', 'Charles', 'charles.leducq@sts-sio-caen.info', 'charles', 'charles', 10),
-(2, 1, 'LECOMTE', 'Matthias', 'matthias.lecomte@sts-sio-caen.info', 'matthias', 'matthias', 1),
-(3, 1, 'BINET', 'Maxime', 'maxime.binet@sts-sio-caen.info', 'maxime', 'maxime', 100);
+(12, 1, 'Lecomte', 'Matthias', 'matthias.lecomte@sts-sio-caen.info', 'matthias', 'e388d34fd3c0456122779e95f262c0d70198a168', 1),
+(13, 1, 'Leducq', 'Charles', 'charles.leducq@sts-sio-caen.info', 'charles', 'cbdb0cc7f3f5b4be81a75fa7242590e3e9882e1e', 10),
+(14, 1, 'Binet', 'Maxime', 'maxime.binet@sts-sio-caen.info', 'maxime', '1acc295174379ec718e1123290d06dcd8d68feb6', 100);
 
 -- --------------------------------------------------------
 
@@ -113,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `partie` (
   `idJoueur2` int(11) DEFAULT NULL,
   `dernierCoup` datetime DEFAULT NULL,
   `partieFini` tinyint(1) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=295 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=98 ;
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `probleme` (
 CREATE TABLE IF NOT EXISTS `question` (
 `id` int(11) NOT NULL,
   `idDomaine` int(11) NOT NULL,
-  `idJoueur` int(11) NOT NULL,
+  `idJoueur` int(11) DEFAULT NULL,
   `libelle` text,
   `validation` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
@@ -145,12 +146,12 @@ CREATE TABLE IF NOT EXISTS `question` (
 --
 
 INSERT INTO `question` (`id`, `idDomaine`, `idJoueur`, `libelle`, `validation`) VALUES
-(1, 1, 1, 'Quel modèle d''ordinateurs Apple n''existe pas?', 1),
-(2, 3, 3, 'De quelle couleur est le cheval blanc d''Henri IV?', 1),
-(3, 2, 2, 'Question 1 desktop ?', 1),
-(4, 2, 2, 'Question 2 desktop ?', 1),
-(5, 3, 3, 'Pas censé avoir cette question ?', 1),
-(6, 3, 3, 'Pas censé avoir cette question ?', 1);
+(1, 1, 14, 'Quel modèle d''ordinateurs Apple n''existe pas?', 1),
+(2, 3, 13, 'De quelle couleur est le cheval blanc d''Henri IV?', 1),
+(3, 2, 12, 'Question 1 desktop ?', 1),
+(4, 2, 12, 'Question 2 desktop ?', 1),
+(5, 3, 12, 'Pas censé avoir cette question ?', 1),
+(6, 3, 12, 'Pas censé avoir cette question ?', 1);
 
 -- --------------------------------------------------------
 
@@ -320,7 +321,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT pour la table `joueur`
 --
 ALTER TABLE `joueur`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `monde`
 --
@@ -330,7 +331,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT pour la table `partie`
 --
 ALTER TABLE `partie`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=295;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT pour la table `probleme`
 --
