@@ -1,4 +1,5 @@
-<div id="divListe">
+<br>
+<div align="center" id="divListe">
     <?php
     echo " <a class='creerPartie' href='#'>Créer Partie</a><br/>";
     echo " <a class='inviterJoueur' href='#'>Inviter Joueur</a><br/><br/>"; ?>

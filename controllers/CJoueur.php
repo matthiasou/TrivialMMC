@@ -130,7 +130,10 @@ class CJoueur extends \BaseController
         } else {
             $result = "<a href='CJoueur'>Connectez-vous</a>";
         }
+
         $this->loadView("vHeader", $result);
+        echo'<br>';
+        echo '<div align="center" id="bloc_page"><img  align="center" width="10%" height="10%" src="/trivia/images/logo.png" alt="Logo_triviaMMC" title="Accueil" id="logo"/></div>';
         echo JsUtils::getAndBindTo("#lienJoueur", "click", "/trivia/CJoueur/pageJoueur/", "{}", "#divListe");
         echo JsUtils::getAndBindTo("#lienParties", "click", "/trivia/CJoueur/listerParties/", "{}", "#divListe");
     }

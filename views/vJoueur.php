@@ -7,7 +7,7 @@
  */
 ?>
 <html>
-<fieldset>
+<fieldset style="width: 60%">
     <legend><h1>Profil de <?php echo $data["profil"]['prenom'];?></h1></legend>
 
     Nom : <?php echo $data["profil"]['nom'];?> </br>
@@ -38,17 +38,17 @@ if($data["profil"]['niveau']==100){
     <!-- Ajouter un monde -->
     <form id="frmModifMonde" name="frmAddMonde" class="addMonde">
         <h1>Espace admin</h1>
-        <fieldset>
+        <fieldset style="width: 70%">
             <legend>Ajouter un monde</legend>
-            <label for="libelle">Nom : </label><input type="text" id="libelle" name="libelle"><br>
+            <tr><td>Nom :</td><td><input type="text" id="libelle" name="libelle"><br>
             <br>
             <input type="button" value="Valider" id="btValiderAddMonde" class="btValiderAddMonde">
         </fieldset>
     </form>
-
+    <br>
     <!-- Modifier un monde -->
     <form id="frmUpMonde" name="frmUpMonde" class="upMonde">
-        <fieldset>
+        <fieldset style="width: 70%">
             <legend>Modifier un monde</legend>
             <br>
             <?php
@@ -67,9 +67,9 @@ if($data["profil"]['niveau']==100){
 
 
     <!-- Ajouter un domaine -->
-
+    <br>
     <form id="frmAddDomaine" name="frmAddDomaine">
-        <fieldset>
+        <fieldset style="width: 70%">
 
             <legend>Ajouter domaine :</legend>
 
@@ -95,10 +95,10 @@ if($data["profil"]['niveau']==100){
     </form>
 
     <!--Fin -->
-
+    <br>
     <!-- Modifier un domaine -->
     <form id="frmModifDomaine" name="frmModifDomaine" class="upDomaine">
-        <fieldset>
+        <fieldset style="width: 70%">
             <legend>Modifier un Domaine</legend>
             <br>
             <?php
